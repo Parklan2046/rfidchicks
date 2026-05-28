@@ -1,0 +1,173 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "brand": "Block Chicken",
+  "nav": {
+    "flow": "How It Works",
+    "features": "Features",
+    "testimonials": "Testimonials",
+    "biz": "Business Plan",
+    "pricing": "Pricing"
+  },
+  "hero": {
+    "title": "Block Chicken 🐔<span class=\"zh\">Every Chicken on Chain.</span>",
+    "desc": "Block Chicken is the next-generation poultry traceability platform. Using UHF RFID tags, IoT sensors, and blockchain anchoring — we give every chicken a digital passport from hatchery to supermarket. Every chicken, on chain.",
+    "cta1": "🚀 Get Started",
+    "cta2": "📋 How It Works"
+  },
+  "journey": {
+    "tag": "🐔 Supply Chain Journey",
+    "title": "Nine Checkpoints, Full Transparency",
+    "sub": "From the moment a chick hatches to the second a consumer picks it off the shelf — every checkpoint is logged with RFID scans, IoT sensor data, and GPS timestamps.",
+    "s1": "1. Hatchery",
+    "s1s": "RFID Tag Assigned",
+    "s2": "2. Farm",
+    "s2s": "Growth & Health Logs",
+    "s3": "3. Transport",
+    "s3s": "Temp & GPS Monitoring",
+    "s4": "4. Processing",
+    "s4s": "Grading & Inspection",
+    "s5": "5. Packaging",
+    "s5s": "RFID → QR Mapping",
+    "s6": "6. Cold Chain",
+    "s6s": "Temp Every 15 Min",
+    "s7": "7. Distribution",
+    "s7s": "Last-Mile Tracking",
+    "s8": "8. Retail",
+    "s8s": "Store Receiving Scan",
+    "s9": "9. Consumer",
+    "s9s": "QR → Full History"
+  },
+  "features": {
+    "tag": "✨ Why Block Chicken?",
+    "title": "Built for the Modern Poultry Industry",
+    "sub": "Combining UHF RAIN RFID, IoT environmental sensors, and optional blockchain anchoring — we deliver the most comprehensive poultry traceability solution on the market.",
+    "f1t": "Food Safety First",
+    "f1p": "Isolate recalls in minutes, not days. Pinpoint exactly which batches are affected using real-time RFID scan history.",
+    "f2t": "Consumer Trust",
+    "f2p": "Your customers scan a QR code and see the full journey — farm origin, processing date, cold chain integrity, and certifications.",
+    "f3t": "Regulatory Compliance",
+    "f3p": "FDA FSMA 204, EU Farm-to-Fork Strategy, CFIA mandates — built to meet global food traceability standards.",
+    "f4t": "Real-Time Alerts",
+    "f4p": "Temperature breaches, transit delays, missed checkpoints — get SMS and dashboard alerts the moment something goes wrong.",
+    "f5t": "Blockchain Integrity",
+    "f5p": "Optional Hyperledger Fabric anchoring for tamper-proof audit trails. Every critical event hash is immutable on-chain.",
+    "f6t": "Affordable at Scale",
+    "f6p": "$0.05–$0.15 RFID tags, ~$65/checkpoint hardware. Designed for million-bird operations with ROI from day one."
+  },
+  "testimonials": {
+    "tag": "💬 Testimonials",
+    "title": "Trusted Across the Entire Supply Chain",
+    "sub": "From university caterers to supermarket chains, farmers to families — see why the whole supply chain is switching to Block Chicken.",
+    "t1": "Since rolling out Block Chicken at our campus canteens, student satisfaction with food transparency has jumped 40%. Students love scanning the QR code to see exactly which farm their Hainanese chicken rice came from. For a university that prides itself on tech, this is a no-brainer.",
+    "r1": "Catering Director, HKUST",
+    "t2": "Before Block Chicken, when there was a food scare, we'd lose weeks of sales while they traced the source. Now? 30 minutes — they scan the batch, isolate the affected birds, and the rest of my farm keeps selling. My premium free-range chickens now sell at 25% higher price because buyers can verify the claim.",
+    "r2": "Owner, Kam Tin Free-Range Farm, Yuen Long",
+    "t3": "Our customers increasingly demand to know where their food comes from. Block Chicken gives us that competitive edge — every pack on our shelf has a QR code that tells the full story. Sales of traceable chicken are up 35% since launch. It's become our #1 differentiator.",
+    "r3": "VP Fresh Foods, PARKnSHOP (HK & Macau)",
+    "t4": "The IoT temperature sensors saved us from a $200K claim. A reefer unit malfunctioned mid-route and Block Chicken's real-time alert caught it within 10 minutes. We rerouted the truck and saved the entire shipment. Our insurance premiums dropped 15% after installing the system.",
+    "r4": "CEO, Chill Chain Logistics Ltd",
+    "t5": "USDA inspectors love our setup. Every carcass is tracked from intake to packaging — RFID on the conveyor line means zero paperwork, zero manual logs. We passed our FSMA 204 audit in record time. The blockchain anchoring gives our export buyers in Japan and the EU total confidence.",
+    "r5": "Plant Manager, Tai Po Poultry Processing",
+    "t6": "As a mom of two, food safety is everything to me. I used to just buy whatever was cheapest. Now I ONLY buy chicken with the Block Chicken QR code — I scan it, see the farm, see the cold chain was intact, see the halal cert. It's worth paying a bit more for peace of mind.",
+    "r6": "Mother of 2, Tai Koo Shing"
+  },
+  "biz": {
+    "tag": "📊 Business Plan",
+    "title": "Building the Future of Food Traceability",
+    "sub": "The global food traceability market is projected to reach $35B+ by 2030. Block Chicken targets the $380B global poultry market with a SaaS + hardware model.",
+    "c1t": "Target Market",
+    "c1": [
+      "Mid-to-large poultry farms (50K+ birds/year)",
+      "Poultry processing plants & cold chain operators",
+      "Supermarket chains requiring traceability compliance",
+      "Export-oriented poultry producers (EU/US compliance)",
+      "Premium / organic / free-range chicken brands"
+    ],
+    "c2t": "Revenue Model",
+    "c2": [
+      "SaaS subscription (tiered by volume)",
+      "Hardware sales or lease (readers, sensors, gateways)",
+      "RFID tag consumables (recurring revenue)",
+      "Integration & onboarding fees",
+      "Certification-as-a-Service (organic, halal, free-range)"
+    ],
+    "c3t": "Go-to-Market",
+    "c3": [
+      "Phase 1: Pilot with 2-3 farms in Hong Kong / Guangdong",
+      "Phase 2: Expand to Southeast Asia (Thailand, Vietnam, Malaysia)",
+      "Phase 3: EU & North America export compliance",
+      "Partnerships with poultry associations & food safety regulators"
+    ],
+    "c4t": "Tech Moat",
+    "c4": [
+      "Proprietary UHF RFID + IoT sensor fusion algorithms",
+      "Blockchain-anchored event immutability",
+      "Open API for ERP / WMS integration",
+      "Edge computing (ESP32 offline buffer for rural areas)",
+      "Patented RFID-on-crate attachment method"
+    ]
+  },
+  "pricing": {
+    "tag": "💳 Subscription Plans",
+    "title": "Simple Pricing for Every Scale",
+    "sub": "All plans include hardware setup, RFID tags, cloud platform, and 24/7 support. No hidden fees.",
+    "badge": "⭐ Most Popular",
+    "p1n": "Starter Farm",
+    "p1d": "Up to 50,000 birds/year",
+    "p1f": [
+      "3 RFID checkpoints",
+      "Basic IoT sensors (temp + humidity)",
+      "Cloud dashboard",
+      "Consumer QR trace page",
+      "Email support",
+      "5,000 RFID tags included"
+    ],
+    "p2n": "Commercial Farm",
+    "p2d": "Up to 500,000 birds/year",
+    "p2f": [
+      "7 RFID checkpoints (full chain)",
+      "Advanced IoT (temp, humidity, NH₃, GPS)",
+      "Real-time alerts (SMS + email)",
+      "Blockchain anchoring included",
+      "API access",
+      "Priority 24/7 support",
+      "50,000 RFID tags included"
+    ],
+    "p3n": "Enterprise",
+    "p3a": "Custom",
+    "p3d": "1M+ birds/year, multi-site",
+    "p3f": [
+      "Unlimited checkpoints",
+      "Full IoT sensor suite",
+      "Custom integrations (ERP, WMS, SAP)",
+      "Dedicated blockchain network",
+      "On-premise deployment option",
+      "Dedicated account manager",
+      "White-label consumer app"
+    ],
+    "cta": "Start Free Trial",
+    "contact": "Contact Sales"
+  },
+  "sub": {
+    "tag": "📧 Get Early Access",
+    "title": "Ready to Trace Every Bird?",
+    "desc": "Join our pilot program. First 10 farms get free hardware installation and 3 months free.",
+    "placeholder": "your@email.com",
+    "btn": "🐔 Join the Flock",
+    "alert": "🎉 Welcome to the flock! We'll send you onboarding details within 24 hours."
+  },
+  "contact": {
+    "tag": "💬 Contact Us",
+    "title": "Let's Talk Chicken 🐔",
+    "desc": "Have questions about integrating Block Chicken into your poultry operation? Our team of poultry tech specialists is ready to help.",
+    "name": "Your Name",
+    "email": "Email Address",
+    "farm": "Farm Name",
+    "msg": "Tell us about your operation",
+    "send": "Send Message 🐓",
+    "alert": "Thanks! We'll get back to you within 24 hours.",
+    "invalidEmail": "Please enter a valid email address."
+  },
+  "footer": "🐔 區塊雞 Block Chicken — Every Chicken on Chain. © 2026"
+}
