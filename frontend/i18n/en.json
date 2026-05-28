@@ -10,10 +10,20 @@
     "pricing": "Pricing"
   },
   "hero": {
-    "title": "Block Chicken 🐔<span class=\"zh\">Every Chicken on Chain.</span>",
-    "desc": "Block Chicken is the next-generation poultry traceability platform. Using UHF RFID tags, IoT sensors, and blockchain anchoring — we give every chicken a digital passport from hatchery to supermarket. Every chicken, on chain.",
+    "title": "<span class=\"em\">Block Chicken</span><span class=\"sub\">Every Chicken on Chain.</span>",
+    "desc": "The next-generation poultry traceability platform. Using UHF RFID tags, IoT sensors, and blockchain anchoring — we give every chicken a digital passport from hatchery to supermarket.",
     "cta1": "🚀 Get Started",
-    "cta2": "📋 How It Works"
+    "cta2": "How It Works",
+    "card": {
+      "label": "Live Traceability",
+      "num": "9<span>Checkpoints</span>",
+      "stat1": "$0.05",
+      "lbl1": "per tag",
+      "stat2": "100%",
+      "lbl2": "on chain",
+      "stat3": "<30s",
+      "lbl3": "recall time"
+    }
   },
   "journey": {
     "tag": "🐔 Supply Chain Journey",
@@ -76,6 +86,8 @@
     "tag": "📊 Business Plan",
     "title": "Building the Future of Food Traceability",
     "sub": "The global food traceability market is projected to reach $35B+ by 2030. Block Chicken targets the $380B global poultry market with a SaaS + hardware model.",
+    "stat": "$380B",
+    "statSub": "Global Poultry Market",
     "c1t": "Target Market",
     "c1": [
       "Mid-to-large poultry farms (50K+ birds/year)",

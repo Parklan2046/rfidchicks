@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -253,8 +253,8 @@ footer a:hover{color:var(--accent-light)}
     <a href="#testimonials" data-i18n="nav.testimonials">用家心聲</a>
     <a href="#pricing" data-i18n="nav.pricing">訂閱方案</a>
     <div class="lang-switch">
-      <button onclick="setLang('zh')" id="btnZh" class="active">中</button>
-      <button onclick="setLang('en')" id="btnEn">EN</button>
+      <button onclick="setLang('zh')" data-lang="zh">中</button>
+      <button onclick="setLang('en')" data-lang="en" class="active">EN</button>
     </div>
   </div>
 </nav>
@@ -456,135 +456,25 @@ footer a:hover{color:var(--accent-light)}
   <button onclick="document.getElementById('cookieBanner').remove()">Got it</button>
 </div>
 
+<script src="i18n/i18n.js"></script>
 <script>
-// ═══════════ i18n ═══════════
-const i18n={zh:{
-  brand:"區塊雞","nav.flow":"運作流程","nav.features":"功能特色","nav.testimonials":"用家心聲","nav.pricing":"訂閱方案",
-  "hero.title":"<span class=\"em\">區塊雞</span><span class=\"sub\">區塊鏈溯源 · 隻雞有來歷</span>",
-  "hero.desc":"新一代家禽溯源追蹤平台。透過超高頻 RFID 標籤、物聯網感測器及區塊鏈存證，為每隻雞建立數碼護照，由孵蛋場到超市貨架，全程透明可查。",
-  "hero.cta1":"🚀 立即開始","hero.cta2":"了解運作方式",
-  "hero.card.label":"即時溯源追蹤","hero.card.num":"9<span>個關卡</span>","hero.card.stat1":"$0.05","hero.card.lbl1":"每標籤","hero.card.stat2":"100%","hero.card.lbl2":"上鏈","hero.card.stat3":"&lt;30s","hero.card.lbl3":"召回時間",
-  "journey.tag":"🐔 供應鏈全程追蹤","journey.title":"九個關卡，全程透明","journey.sub":"由雛雞孵化一刻至消費者從貨架取下的瞬間 — 每個關卡都以 RFID 掃瞄、物聯網數據及 GPS 時間戳記錄在案。",
-  "journey.s1":"1. 孵蛋場","journey.s1s":"RFID 標籤分配","journey.s2":"2. 農場","journey.s2s":"生長與健康記錄",
-  "journey.s3":"3. 運輸","journey.s3s":"溫控GPS監控","journey.s4":"4. 屠宰加工","journey.s4s":"分級與檢驗",
-  "journey.s5":"5. 包裝","journey.s5s":"RFID → QR 連結","journey.s6":"6. 冷鏈倉儲","journey.s6s":"每15分鐘測溫",
-  "journey.s7":"7. 配送","journey.s7s":"末端配送追蹤","journey.s8":"8. 零售","journey.s8s":"門店收貨掃瞄","journey.s9":"9. 消費者","journey.s9s":"QR一掃全歷程",
-  "features.tag":"✨ 為何選擇區塊雞？","features.title":"為現代家禽產業而生","features.sub":"結合 UHF RAIN RFID、物聯網環境感測器及可選區塊鏈存證 — 我們提供市場上最全面的家禽溯源方案。",
-  "features.f1t":"食品安全為先","features.f1p":"由數天縮短至數分鐘內完成回收隔離。利用即時 RFID 掃瞄記錄，精確定位受影響批次。",
-  "features.f2t":"消費者信心","features.f2p":"顧客掃瞄 QR 碼即可查閱完整旅程 — 農場來源、加工日期、冷鏈完整度及認證資訊。",
-  "features.f3t":"法規合規","features.f3p":"FDA FSMA 204、歐盟 Farm-to-Fork 策略、CFIA 溯源要求 — 系統按全球標準設計。",
-  "features.f4t":"即時警報","features.f4p":"溫度超標、運輸延誤、漏檢關卡 — 一有異常即時發送 SMS 及儀表板警報。",
-  "features.f5t":"區塊鏈存證","features.f5p":"可選 Hyperledger Fabric 存證，建立防篡改審計軌跡。每個關鍵事件哈希不可竄改地記錄在鏈上。",
-  "features.f6t":"大規模低成本","features.f6p":"RFID 標籤僅 $0.05–$0.15 美元，每關卡硬件 ~$65 美元。專為百萬級雞隻營運設計，首日即有回報。",
-  "testimonials.tag":"💬 用家心聲","testimonials.title":"由農場到餐桌 · 全鏈用家推薦","testimonials.sub":"由大學飯堂到連鎖超市，由農場到家庭 — 睇下點解成條供應鏈都轉用區塊雞。",
-  "testimonials.t1":"自從喺校園飯堂引入區塊雞之後，學生對食物透明度嘅滿意度上升咗 40%。學生好鍾意掃個 QR code 睇下碟海南雞飯嘅雞係邊個農場嚟。科大作為一間以科技自豪嘅大學，呢個系統完全係 no-brainer。",
-  "testimonials.r1":"香港科技大學 · 餐飲總監",
-  "testimonials.t2":"未用區塊雞之前，每次有食安風波，我成個農場都要停工幾個禮拜等查源頭。而家？30 分鐘搞掂 — 掃一掃就知邊批雞有事，其他批次照常出貨。我啲走地雞仲因為可以俾買家驗證，賣貴咗 25%！",
-  "testimonials.r2":"元朗錦田走地雞場 · 場主",
-  "testimonials.t3":"而家啲客愈嚟愈想知佢哋食緊嘅嘢係邊度嚟。區塊雞俾到我哋一個競爭優勢 — 貨架上每一包雞都有 QR code，一掃就知成個故事。自從推出以嚟，可溯源雞肉銷量升咗 35%，成為咗我哋最大嘅差異化賣點。",
-  "testimonials.r3":"百佳超級市場 · 鮮食品副總裁",
-  "testimonials.t4":"個 IoT 溫度 sensor 幫我哋避咗一單 $200K 嘅賠償。有次冷藏車半路壞機，區塊雞嘅即時警報 10 分鐘內就通知咗我哋，即刻改道，救返成車貨。裝咗個系統之後，我哋保險費仲跌咗 15%。",
-  "testimonials.r4":"冰鏈物流有限公司 · 行政總裁",
-  "testimonials.t5":"USDA 檢查官好鍾意我哋嘅系統。由入貨到包裝，每隻雞 carcass 都有 RFID 追蹤，生產線上 zero 文書、zero 人手記錄。我哋 FSMA 204 審核破紀錄咁快通過。區塊鏈存證仲令到我哋日本同歐盟嘅出口客戶好有信心。",
-  "testimonials.r5":"大埔家禽加工廠 · 廠長",
-  "testimonials.t6":"作為兩個小朋友嘅媽咪，食安對我嚟講係最重要嘅事。以前我淨係買最平嗰隻，而家我只會買有區塊雞 QR code 嘅雞肉 — 掃一掃就睇到邊個農場、冷鏈有冇斷過、清真認證。俾多少少錢換個安心，絕對值得。",
-  "testimonials.r6":"太古城 · 兩孩之母",
-  "biz.tag":"📊 商業計劃","biz.title":"打造食品溯源新未來","biz.sub":"全球食品溯源市場預計 2030 年將達 $350 億美元以上。區塊雞以 SaaS + 硬件模式，瞄準全球 $3,800 億美元家禽市場。",
-  "biz.stat":"$380B","biz.statSub":"全球家禽市場",
-  "biz.c1t":"目標市場","biz.c1":["中大型家禽養殖場（年產 5 萬隻以上）","家禽屠宰加工廠及冷鏈營運商","需符合溯源法規的超級市場連鎖","出口型家禽生產商（歐盟/美國合規需求）","高級/有機/走地雞品牌"],
-  "biz.c2t":"收入模式","biz.c2":["SaaS 訂閱制（按規模分級收費）","硬件銷售或租賃（讀寫器、感測器、網關）","RFID 標籤耗材（持續收入）","系統整合及導入費用","認證即服務（有機、清真、走地雞驗證）"],
-  "biz.c3t":"市場策略","biz.c3":["第一階段：香港/廣東 2-3 個農場試點","第二階段：擴展至東南亞（泰國、越南、馬來西亞）","第三階段：歐盟及北美出口合規","與家禽協會及食品安全監管機構合作"],
-  "biz.c4t":"技術壁壘","biz.c4":["自主研發 UHF RFID + 物聯網傳感器融合算法","區塊鏈存證確保事件不可篡改","開放 API 對接 ERP / WMS 系統","邊緣運算（ESP32 離線緩衝，適用偏遠農場）","專利 RFID 雞籠附著技術"],
-  "pricing.tag":"💳 訂閱方案","pricing.title":"簡單定價，規模任選","pricing.sub":"所有方案包含硬件安裝、RFID 標籤、雲端平台及全天候支援。無隱藏收費。",
-  "pricing.badge":"⭐ 最受歡迎","pricing.p1n":"入門農場","pricing.p1d":"年產最多 5 萬隻雞","pricing.p1f":["3 個 RFID 關卡","基本物聯網感測器（溫濕度）","雲端儀表板","消費者 QR 溯源頁面","電郵支援","附送 5,000 個 RFID 標籤"],
-  "pricing.p2n":"商業農場","pricing.p2d":"年產最多 50 萬隻雞","pricing.p2f":["7 個 RFID 關卡（全鏈）","進階物聯網（溫濕度、氨氣、GPS）","即時警報（SMS + 電郵）","含區塊鏈存證","API 接口","24/7 優先支援","附送 50,000 個 RFID 標籤"],
-  "pricing.p3n":"企業方案","pricing.p3a":"按需定價","pricing.p3d":"年產百萬隻以上，多據點","pricing.p3f":["不限關卡數量","全套物聯網感測器","客製化整合（ERP、WMS、SAP）","專屬區塊鏈網絡","可選本地部署","專屬客戶經理","白標消費者應用程式"],
-  "pricing.cta":"開始免費試用","pricing.contact":"聯絡銷售",
-  "sub.tag":"📧 搶先體驗","sub.title":"準備好追蹤每隻雞？","sub.desc":"加入我們試點計劃。首 10 個農場免費安裝硬件，另送 3 個月免費使用。","sub.placeholder":"你的電郵地址","sub.btn":"🐔 加入雞群",
-  "sub.alert":"🎉 歡迎加入雞群！我們將在 24 小時內發送入門詳情。",
-  "contact.tag":"💬 聯絡我們","contact.title":"傾下雞經 🐔","contact.desc":"想了解如何將區塊雞整合到你的家禽業務？我們的家禽科技專家團隊隨時為你服務。",
-  "contact.name":"你的名字","contact.email":"電郵地址","contact.farm":"農場名稱","contact.msg":"描述你的業務規模","contact.send":"發送訊息 🐓",
-  "contact.alert":"多謝！我哋 24 小時內會回覆你。",
-  "footer":"區塊鏈溯源 · 隻雞有來歷 · Every Chicken on Chain. © 2026"
-},en:{
-  brand:"Block Chicken","nav.flow":"How It Works","nav.features":"Features","nav.testimonials":"Testimonials","nav.pricing":"Pricing",
-  "hero.title":"<span class=\"em\">Block Chicken</span><span class=\"sub\">Every Chicken on Chain.</span>",
-  "hero.desc":"The next-generation poultry traceability platform. Using UHF RFID tags, IoT sensors, and blockchain anchoring — we give every chicken a digital passport from hatchery to supermarket.",
-  "hero.cta1":"🚀 Get Started","hero.cta2":"How It Works",
-  "hero.card.label":"Live Traceability","hero.card.num":"9<span>Checkpoints</span>","hero.card.stat1":"$0.05","hero.card.lbl1":"per tag","hero.card.stat2":"100%","hero.card.lbl2":"on chain","hero.card.stat3":"&lt;30s","hero.card.lbl3":"recall time",
-  "journey.tag":"🐔 Supply Chain Journey","journey.title":"Nine Checkpoints, Full Transparency","journey.sub":"From the moment a chick hatches to the second a consumer picks it off the shelf — every checkpoint is logged with RFID scans, IoT sensor data, and GPS timestamps.",
-  "journey.s1":"1. Hatchery","journey.s1s":"RFID Tag Assigned","journey.s2":"2. Farm","journey.s2s":"Growth & Health Logs",
-  "journey.s3":"3. Transport","journey.s3s":"Temp & GPS Monitored","journey.s4":"4. Processing","journey.s4s":"Grading & Inspection",
-  "journey.s5":"5. Packaging","journey.s5s":"RFID → QR Mapping","journey.s6":"6. Cold Chain","journey.s6s":"Temp Every 15 Min",
-  "journey.s7":"7. Distribution","journey.s7s":"Last-Mile Tracking","journey.s8":"8. Retail","journey.s8s":"Store Receiving","journey.s9":"9. Consumer","journey.s9s":"QR → Full History",
-  "features.tag":"✨ Why Block Chicken?","features.title":"Built for Modern Poultry","features.sub":"Combining UHF RAIN RFID, IoT environmental sensors, and optional blockchain anchoring — the most comprehensive poultry traceability solution on the market.",
-  "features.f1t":"Food Safety First","features.f1p":"Isolate recalls in minutes, not days. Pinpoint exactly which batches are affected using real-time RFID scan history.",
-  "features.f2t":"Consumer Trust","features.f2p":"Customers scan a QR code to see the full journey — farm origin, processing date, cold chain integrity, and certifications.",
-  "features.f3t":"Regulatory Compliance","features.f3p":"FDA FSMA 204, EU Farm-to-Fork Strategy, CFIA mandates — built to meet global food traceability standards.",
-  "features.f4t":"Real-Time Alerts","features.f4p":"Temperature breaches, transit delays, missed checkpoints — get SMS and dashboard alerts the moment something goes wrong.",
-  "features.f5t":"Blockchain Integrity","features.f5p":"Optional Hyperledger Fabric anchoring for tamper-proof audit trails. Every critical event hash is immutable on-chain.",
-  "features.f6t":"Affordable at Scale","features.f6p":"$0.05–$0.15 RFID tags, ~$65/checkpoint hardware. Designed for million-bird operations with ROI from day one.",
-  "testimonials.tag":"💬 Testimonials","testimonials.title":"Trusted Across the Supply Chain","testimonials.sub":"From university caterers to supermarket chains, farmers to families — see why the whole chain is switching to Block Chicken.",
-  "testimonials.t1":"Since rolling out Block Chicken at our campus canteens, student satisfaction with food transparency has jumped 40%. Students love scanning the QR code to see which farm their Hainanese chicken rice came from. For a tech university, this is a no-brainer.",
-  "testimonials.r1":"Catering Director, HKUST",
-  "testimonials.t2":"Before Block Chicken, food scares meant weeks of lost sales tracing sources. Now? 30 minutes — scan the batch, isolate affected birds, and the rest of my farm keeps selling. My free-range chickens now command 25% higher prices with verified provenance.",
-  "testimonials.r2":"Owner, Kam Tin Free-Range Farm, Yuen Long",
-  "testimonials.t3":"Customers increasingly want to know where their food comes from. Block Chicken gives us that edge — every pack has a QR code telling the full story. Traceable chicken sales are up 35% since launch. It's our #1 differentiator.",
-  "testimonials.r3":"VP Fresh Foods, PARKnSHOP (HK & Macau)",
-  "testimonials.t4":"The IoT sensors saved us from a $200K claim. A reefer malfunctioned mid-route and Block Chicken's alert caught it within 10 minutes. We rerouted and saved the entire shipment. Insurance premiums dropped 15% after installation.",
-  "testimonials.r4":"CEO, Chill Chain Logistics Ltd",
-  "testimonials.t5":"USDA inspectors love our setup. Every carcass is RFID-tracked from intake to packaging — zero paperwork, zero manual logs. We passed our FSMA 204 audit in record time. Blockchain anchoring gives our Japan and EU buyers total confidence.",
-  "testimonials.r5":"Plant Manager, Tai Po Poultry Processing",
-  "testimonials.t6":"As a mom of two, food safety is everything. I only buy chicken with the Block Chicken QR code now — scan and see the farm, cold chain, halal cert. Worth paying a bit more for peace of mind.",
-  "testimonials.r6":"Mother of 2, Tai Koo Shing",
-  "biz.tag":"📊 Business Plan","biz.title":"Building the Future of Food Traceability","biz.sub":"The global food traceability market is projected to reach $35B+ by 2030. Block Chicken targets the $380B poultry market with a SaaS + hardware model.",
-  "biz.stat":"$380B","biz.statSub":"Global Poultry Market",
-  "biz.c1t":"Target Market","biz.c1":["Mid-to-large poultry farms (50K+ birds/yr)","Processing plants & cold chain operators","Supermarket chains (compliance)","Export-oriented producers (EU/US)","Premium / organic / free-range brands"],
-  "biz.c2t":"Revenue Model","biz.c2":["SaaS subscription (tiered by volume)","Hardware sales or lease","RFID tag consumables (recurring)","Integration & onboarding fees","Certification-as-a-Service"],
-  "biz.c3t":"Go-to-Market","biz.c3":["Phase 1: Pilot 2-3 farms in HK/Guangdong","Phase 2: Southeast Asia expansion","Phase 3: EU & North America compliance","Partnerships with poultry associations"],
-  "biz.c4t":"Tech Moat","biz.c4":["Proprietary RFID + IoT fusion algorithms","Blockchain-anchored immutability","Open API (ERP/WMS integration)","Edge computing (ESP32 offline buffer)","Patented RFID-on-crate attachment"],
-  "pricing.tag":"💳 Subscription Plans","pricing.title":"Simple Pricing, Any Scale","pricing.sub":"All plans include hardware setup, RFID tags, cloud platform, and 24/7 support. No hidden fees.",
-  "pricing.badge":"⭐ Most Popular","pricing.p1n":"Starter Farm","pricing.p1d":"Up to 50,000 birds/yr","pricing.p1f":["3 RFID checkpoints","Basic IoT (temp + humidity)","Cloud dashboard","Consumer QR trace page","Email support","5,000 RFID tags included"],
-  "pricing.p2n":"Commercial Farm","pricing.p2d":"Up to 500,000 birds/yr","pricing.p2f":["7 RFID checkpoints (full chain)","Advanced IoT (temp, NH₃, GPS)","Real-time alerts (SMS + email)","Blockchain anchoring included","API access","Priority 24/7 support","50,000 RFID tags included"],
-  "pricing.p3n":"Enterprise","pricing.p3a":"Custom","pricing.p3d":"1M+ birds/yr, multi-site","pricing.p3f":["Unlimited checkpoints","Full IoT sensor suite","Custom integrations (SAP, WMS)","Dedicated blockchain network","On-premise deployment option","Dedicated account manager","White-label consumer app"],
-  "pricing.cta":"Start Free Trial","pricing.contact":"Contact Sales",
-  "sub.tag":"📧 Get Early Access","sub.title":"Ready to Trace Every Bird?","sub.desc":"Join our pilot program. First 10 farms get free hardware installation and 3 months free.","sub.placeholder":"your@email.com","sub.btn":"🐔 Join the Flock",
-  "sub.alert":"🎉 Welcome to the flock! We'll send you onboarding details within 24 hours.",
-  "contact.tag":"💬 Contact Us","contact.title":"Let's Talk Chicken 🐔","contact.desc":"Have questions about integrating Block Chicken into your poultry operation? Our poultry tech specialists are ready to help.",
-  "contact.name":"Your Name","contact.email":"Email Address","contact.farm":"Farm Name","contact.msg":"Tell us about your operation","contact.send":"Send Message 🐓",
-  "contact.alert":"Thanks! We'll get back to you within 24 hours.",
-  "footer":"Every Chicken on Chain. © 2026"
-}};
-
-let currentLang='zh';
-function setLang(l){
-  currentLang=l;document.documentElement.lang=l==='zh'?'zh-HK':'en';
-  document.getElementById('btnZh').classList.toggle('active',l==='zh');
-  document.getElementById('btnEn').classList.toggle('active',l==='en');
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const k=el.getAttribute('data-i18n');
-    if(i18n[l][k]!==undefined)el.innerHTML=i18n[l][k];
-  });
-  document.querySelectorAll('[data-i18n-list]').forEach(el=>{
-    const items=i18n[l][el.getAttribute('data-i18n-list')];
-    if(Array.isArray(items))el.innerHTML=items.map(i=>`<li>${i}</li>`).join('');
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
-    const k=el.getAttribute('data-i18n-placeholder');
-    if(i18n[l][k]!==undefined)el.placeholder=i18n[l][k];
-  });
-  document.title=l==='zh'?'🐔 區塊雞 — 區塊鏈雞隻溯源追蹤平台 | Block Chicken Traceability':'🐔 Block Chicken — Blockchain Poultry Traceability | 區塊雞';
-  localStorage.setItem('blockchicken-lang',l);
+// ═══════════════ App Logic ═══════════════
+function doSubscribe() {
+  var email = document.getElementById('subEmail').value;
+  if (email && email.indexOf('@') !== -1) {
+    alert(__i18n.t('sub.alert'));
+  } else {
+    alert(__i18n.t('contact.invalidEmail'));
+  }
 }
-function doSubscribe(){
-  const e=document.getElementById('subEmail').value;
-  alert(e&&e.includes('@')?i18n[currentLang].sub.alert:(currentLang==='zh'?'請輸入有效電郵地址':'Please enter a valid email'));
-}
-(function(){
-  setLang(localStorage.getItem('blockchicken-lang')||'zh');
-  // Scroll reveal
-  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+// Scroll reveal observer
+(function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 })();
 </script>
 </body>
