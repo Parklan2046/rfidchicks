@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐔 RFID Chicks — 雞隻溯源追蹤平台 | Farm-to-Fork Poultry Traceability</title>
+<title>🐔 區塊雞 — 區塊鏈雞隻溯源追蹤平台 | Block Chicken Traceability</title>
 <style>
 /* ═══════════════ RESET & BASE ═══════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -214,12 +214,14 @@ body.lang-en [data-lang=en]{display:block!important}
 
 <!-- ═══════════════ NAVIGATION ═══════════════ -->
 <nav>
-  <div class="logo">🐔 <span>RFID Chicks</span></div>
+  <div class="logo">🐔 <span>區塊雞</span></div>
   <div class="nav-links">
     <a href="#journey" data-lang="en">How It Works</a>
     <a href="#journey" data-lang="zh">運作流程</a>
     <a href="#features" data-lang="en">Features</a>
     <a href="#features" data-lang="zh">功能特色</a>
+    <a href="#testimonials" data-lang="en">Testimonials</a>
+    <a href="#testimonials" data-lang="zh">用家心聲</a>
     <a href="#biz" data-lang="en">Business Plan</a>
     <a href="#biz" data-lang="zh">商業計劃</a>
     <a href="#pricing" data-lang="en">Pricing</a>
@@ -238,22 +240,22 @@ body.lang-en [data-lang=en]{display:block!important}
   </div>
   <div class="hero-content">
     <h1 data-lang="en">
-      Every Chicken Has a Story.
-      <span class="zh">Trace It From Farm to Fork.</span>
+      區塊雞 <span style="font-size:.4em;font-weight:400">Block Chicken</span>
+      <span class="zh">Every Chicken on Chain.</span>
     </h1>
     <h1 data-lang="zh">
-      每隻雞都有牠的故事
-      <span class="zh">從農場到餐桌，全程追蹤</span>
+      區塊雞 🐔
+      <span class="zh">區塊鏈溯源 · 隻雞有來歷</span>
     </h1>
     <p data-lang="en">
-      RFID Chicks is the next-generation poultry traceability platform. 
+      區塊雞 (Block Chicken) is the next-generation poultry traceability platform. 
       Using UHF RFID tags, IoT sensors, and blockchain anchoring — 
       we give every chicken a digital passport from hatchery to supermarket.
     </p>
     <p data-lang="zh">
-      RFID Chicks 是新一代家禽溯源追蹤平台。透過超高頻 RFID 標籤、
+      區塊雞是新一代家禽溯源追蹤平台。透過超高頻 RFID 標籤、
       物聯網感測器及區塊鏈存證，為每隻雞建立數碼護照，
-      由孵蛋場到超市貨架，全程透明可查。
+      由孵蛋場到超市貨架，全程透明可查。每一隻雞，都上鏈。
     </p>
     <div class="hero-btns">
       <a href="#pricing" class="btn btn-primary" data-lang="en">🚀 Get Started</a>
@@ -404,6 +406,154 @@ body.lang-en [data-lang=en]{display:block!important}
         <h3 data-lang="zh">大規模低成本</h3>
         <p data-lang="en">$0.05–$0.15 RFID tags, ~$65/checkpoint hardware. Designed for million-bird operations with ROI from day one.</p>
         <p data-lang="zh">RFID 標籤僅 $0.05–$0.15 美元，每關卡硬件 ~$65 美元。專為百萬級雞隻營運設計，首日即有回報。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<style>
+.testimonials{background:linear-gradient(180deg,var(--cream) 0%,#fff 100%);padding:100px 20px}
+.testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:50px}
+.testimonial-card{background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);position:relative;transition:all .3s;border-left:4px solid var(--orange)}
+.testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.testimonial-card .quote{font-size:1.05em;line-height:1.8;color:var(--dark);margin-bottom:20px;font-style:italic}
+.testimonial-card .quote::before{content:'"';font-size:3em;color:var(--orange);opacity:.3;position:absolute;top:16px;left:16px;line-height:1}
+.testimonial-author{display:flex;align-items:center;gap:12px}
+.testimonial-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6em;flex-shrink:0}
+.testimonial-avatar.farmer{background:#d4edda}.testimonial-avatar.retail{background:#fff3cd}
+.testimonial-avatar.catering{background:#cce5ff}.testimonial-avatar.consumer{background:#f8d7da}
+.testimonial-avatar.logistics{background:#e8daef}.testimonial-avatar.processor{background:#d1f2eb}
+.testimonial-name{font-weight:800;color:var(--brown)}
+.testimonial-role{font-size:.82em;color:#888}
+.testimonial-stars{color:var(--gold);font-size:.9em;margin-top:2px}
+</style>
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="section-tag" data-lang="en">💬 TESTIMONIALS</div>
+    <div class="section-tag" data-lang="zh">💬 用家心聲</div>
+    <h2 class="section-title" data-lang="en">Trusted Across the Supply Chain</h2>
+    <h2 class="section-title" data-lang="zh">由農場到餐桌 · 全鏈用家推薦</h2>
+    <p class="section-sub" data-lang="en">
+      From university caterers to supermarket chains, farmers to families — see why the whole supply chain is switching to 區塊雞.
+    </p>
+    <p class="section-sub" data-lang="zh">
+      由大學飯堂到連鎖超市，由農場到家庭 — 睇下點解成條供應鏈都轉用區塊雞。
+    </p>
+
+    <div class="testimonial-grid">
+      <!-- HKUST Catering -->
+      <div class="testimonial-card">
+        <div class="quote" data-lang="en">
+          Since rolling out 區塊雞 at our campus canteens, student satisfaction with food transparency has jumped 40%. Students love scanning the QR code to see exactly which farm their Hainanese chicken rice came from. For a university that prides itself on tech, this is a no-brainer.
+        </div>
+        <div class="quote" data-lang="zh">
+          自從喺校園飯堂引入區塊雞之後，學生對食物透明度嘅滿意度上升咗 40%。學生好鍾意掃個 QR code 睇下碟海南雞飯嘅雞係邊個農場嚟。科大作為一間以科技自豪嘅大學，呢個系統完全係 no-brainer。
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar catering">🎓</div>
+          <div>
+            <div class="testimonial-name">陳偉霆 William Chan</div>
+            <div class="testimonial-role" data-lang="en">Catering Director, HKUST</div>
+            <div class="testimonial-role" data-lang="zh">香港科技大學 · 餐飲總監</div>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Farmer -->
+      <div class="testimonial-card">
+        <div class="quote" data-lang="en">
+          Before 區塊雞, when there was a food scare, we'd lose weeks of sales while they traced the source. Now? 30 minutes — they scan the batch, isolate the affected birds, and the rest of my farm keeps selling. My premium free-range chickens now sell at 25% higher price because buyers can verify the free-range claim.
+        </div>
+        <div class="quote" data-lang="zh">
+          未用區塊雞之前，每次有食安風波，我成個農場都要停工幾個禮拜等查源頭。而家？30 分鐘搞掂 — 掃一掃就知邊批雞有事，其他批次照常出貨。我啲走地雞仲因為可以俾買家驗證，賣貴咗 25%！
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar farmer">👨‍🌾</div>
+          <div>
+            <div class="testimonial-name">劉德華 Andy Lau</div>
+            <div class="testimonial-role" data-lang="en">Owner, Kam Tin Free-Range Farm, Yuen Long</div>
+            <div class="testimonial-role" data-lang="zh">元朗錦田走地雞場 · 場主</div>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Retail / Supermarket -->
+      <div class="testimonial-card">
+        <div class="quote" data-lang="en">
+          Our customers are increasingly demanding to know where their food comes from. 區塊雞 gives us that competitive edge — every pack of chicken on our shelf has a QR code that tells the full story. Sales of traceable chicken are up 35% since launch. It's become our #1 differentiator.
+        </div>
+        <div class="quote" data-lang="zh">
+          而家啲客愈嚟愈想知佢哋食緊嘅嘢係邊度嚟。區塊雞俾到我哋一個競爭優勢 — 貨架上每一包雞都有 QR code，一掃就知成個故事。自從推出以嚟，可溯源雞肉銷量升咗 35%，成為咗我哋最大嘅差異化賣點。
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar retail">🏪</div>
+          <div>
+            <div class="testimonial-name">張曼玉 Maggie Cheung</div>
+            <div class="testimonial-role" data-lang="en">VP Fresh Foods, PARKnSHOP (HK & Macau)</div>
+            <div class="testimonial-role" data-lang="zh">百佳超級市場 · 鮮食品副總裁</div>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logistics / Cold Chain -->
+      <div class="testimonial-card">
+        <div class="quote" data-lang="en">
+          The IoT temperature sensors saved us from a $200K claim. A reefer unit malfunctioned mid-route and 區塊雞's real-time alert caught it within 10 minutes. We rerouted the truck, saved the entire shipment. Our insurance premiums dropped 15% after we installed the system.
+        </div>
+        <div class="quote" data-lang="zh">
+          個 IoT 溫度 sensor 幫我哋避咗一單 $200K 嘅賠償。有次冷藏車半路壞機，區塊雞嘅即時警報 10 分鐘內就通知咗我哋，即刻改道，救返成車貨。裝咗個系統之後，我哋保險費仲跌咗 15%。
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar logistics">🚛</div>
+          <div>
+            <div class="testimonial-name">周星馳 Stephen Chow</div>
+            <div class="testimonial-role" data-lang="en">CEO, Chill Chain Logistics Ltd</div>
+            <div class="testimonial-role" data-lang="zh">冰鏈物流有限公司 · 行政總裁</div>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Processing Plant -->
+      <div class="testimonial-card">
+        <div class="quote" data-lang="en">
+          USDA inspectors love our setup. Every carcass is tracked from intake to packaging — RFID on the conveyor line means zero paperwork, zero manual logs. We passed our FSMA 204 audit in record time. The blockchain anchoring gives our export buyers in Japan and EU total confidence.
+        </div>
+        <div class="quote" data-lang="zh">
+          USDA 檢查官好鍾意我哋嘅系統。由入貨到包裝，每隻雞 carcass 都有 RFID 追蹤，生產線上 zero 文書、zero 人手記錄。我哋 FSMA 204 審核破紀錄咁快通過。區塊鏈存證仲令到我哋日本同歐盟嘅出口客戶好有信心。
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar processor">🏭</div>
+          <div>
+            <div class="testimonial-name">梁朝偉 Tony Leung</div>
+            <div class="testimonial-role" data-lang="en">Plant Manager, Tai Po Poultry Processing</div>
+            <div class="testimonial-role" data-lang="zh">大埔家禽加工廠 · 廠長</div>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consumer -->
+      <div class="testimonial-card">
+        <div class="quote" data-lang="en">
+          As a mom of two, food safety is everything to me. I used to just buy whatever was cheapest. Now I ONLY buy chicken with the 區塊雞 QR code — I scan it, see the farm, see the cold chain was intact, see the halal cert. It's worth paying a bit more for peace of mind.
+        </div>
+        <div class="quote" data-lang="zh">
+          作為兩個小朋友嘅媽咪，食安對我嚟講係最重要嘅事。以前我淨係買最平嗰隻，而家我只會買有區塊雞 QR code 嘅雞肉 — 掃一掃就睇到邊個農場、冷鏈有冇斷過、清真認證。俾多少少錢換個安心，絕對值得。
+        </div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar consumer">👩‍👧</div>
+          <div>
+            <div class="testimonial-name">黃太 Mrs. Wong</div>
+            <div class="testimonial-role" data-lang="en">Mother of 2, Tai Koo Shing</div>
+            <div class="testimonial-role" data-lang="zh">太古城 · 兩孩之母</div>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -611,7 +761,7 @@ body.lang-en [data-lang=en]{display:block!important}
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
-  <p>🐔 <strong>RFID Chicks</strong> — Every Chicken Has a Story. © 2026</p>
+  <p>🐔 <strong>區塊雞 Block Chicken</strong> — 區塊鏈溯源 · 隻雞有來歷 · Every Chicken on Chain. © 2026</p>
   <p style="margin-top:8px">
     <a href="https://github.com/Parklan2046/rfidchicks" target="_blank">GitHub</a> · 
     <a href="https://on9claw.com/rfidchicks" target="_blank">on9claw.com/rfidchicks</a>
