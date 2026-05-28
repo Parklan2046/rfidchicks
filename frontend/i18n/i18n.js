@@ -69,8 +69,8 @@
     // document metadata
     document.documentElement.lang = code === 'zh' ? 'zh-HK' : 'en';
     document.documentElement.dir  = t.dir || 'ltr';
-
-    // title
+    // Reveal page now that i18n has been applied
+    document.body.style.visibility = '';
     var titleMap = {
       en: '🐔 Block Chicken — Blockchain Poultry Traceability | 區塊雞',
       zh: '🐔 區塊雞 — 區塊鏈雞隻溯源追蹤平台 | Block Chicken Traceability'
