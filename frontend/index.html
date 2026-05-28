@@ -1,85 +1,660 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RFID Chicks — Trace Your Chicken</title>
+<title>🐔 RFID Chicks — 雞隻溯源追蹤平台 | Farm-to-Fork Poultry Traceability</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, system-ui, sans-serif; background: #f5f0eb; color: #2d2d2d; }
-.hero { background: linear-gradient(135deg, #e67e22, #f39c12); color: white; padding: 60px 20px; text-align: center; }
-.hero h1 { font-size: 2.5em; margin-bottom: 10px; }
-.hero p { font-size: 1.2em; opacity: 0.9; }
-.container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-.card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-.card h2 { color: #e67e22; margin-bottom: 15px; }
-.timeline { position: relative; padding-left: 30px; }
-.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 3px; background: #e67e22; border-radius: 2px; }
-.step { position: relative; margin-bottom: 25px; }
-.step::before { content: '🐔'; position: absolute; left: -26px; font-size: 16px; background: #f5f0eb; padding: 2px; }
-.step-label { font-weight: 600; color: #e67e22; }
-.step-time { font-size: 0.85em; color: #999; margin-top: 3px; }
-.cold-chain { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 600; }
-.cold-chain.intact { background: #d4edda; color: #155724; }
-.cold-chain.broken { background: #f8d7da; color: #721c24; }
-.badge { display: inline-block; padding: 4px 10px; border-radius: 6px; background: #fff3cd; color: #856404; margin: 3px; font-size: 0.8em; }
-input[type=text] { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; }
-button { background: #e67e22; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1em; cursor: pointer; margin-top: 10px; }
-button:hover { background: #d35400; }
+/* ═══════════════ RESET & BASE ═══════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#e67e22;--amber:#f39c12;--warm:#d35400;
+  --cream:#fff8f0;--brown:#5d4037;--dark:#2d2d2d;
+  --green:#27ae60;--red:#e74c3c;--gold:#ffd700;
+  --shadow:0 4px 24px rgba(0,0,0,.08);
+  --shadow-lg:0 12px 48px rgba(0,0,0,.12);
+  --radius:16px;--radius-sm:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--cream);color:var(--dark);line-height:1.7;overflow-x:hidden}
+h1,h2,h3{line-height:1.3}
+a{color:var(--orange);text-decoration:none}
+
+/* ═══════════════ NAV ═══════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;
+}
+.logo{font-size:1.5em;font-weight:800;display:flex;align-items:center;gap:8px}
+.logo span{color:var(--orange)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{color:var(--dark);font-weight:600;font-size:.92em;transition:color .2s;padding:6px 0;border-bottom:2px solid transparent}
+.nav-links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
+.lang-toggle{
+  background:var(--orange);color:#fff;border:none;
+  padding:8px 16px;border-radius:20px;font-weight:700;cursor:pointer;
+  font-size:.85em;transition:background .2s;
+}
+.lang-toggle:hover{background:var(--warm)}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(170deg,#2d1f0e 0%,#5d4037 30%,#8b6914 60%,#e67e22 100%);
+  position:relative;overflow:hidden;padding:120px 20px 80px;text-align:center;color:#fff;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 80%,rgba(255,255,255,.06) 0%,transparent 50%),
+             radial-gradient(circle at 80% 20%,rgba(255,255,255,.04) 0%,transparent 50%);
+}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero h1{font-size:clamp(2.2em,6vw,4.5em);font-weight:900;margin-bottom:20px;line-height:1.15}
+.hero h1 .zh{display:block;font-size:.55em;font-weight:500;opacity:.85;margin-top:8px}
+.hero p{font-size:1.25em;opacity:.9;max-width:650px;margin:0 auto 40px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn{
+  display:inline-block;padding:14px 36px;border-radius:50px;font-weight:700;font-size:1.05em;
+  cursor:pointer;transition:all .25s;border:none;text-decoration:none;
+}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 6px 24px rgba(230,126,34,.4)}
+.btn-primary:hover{background:var(--warm);transform:translateY(-2px);box-shadow:0 10px 32px rgba(211,84,0,.5)}
+.btn-outline{background:transparent;border:2px solid #fff;color:#fff}
+.btn-outline:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+
+/* Floating chickens */
+.float-chickens{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.fc{position:absolute;font-size:clamp(40px,8vw,90px);animation:float 6s ease-in-out infinite;opacity:.35}
+.fc:nth-child(1){top:10%;left:5%;animation-delay:0s;font-size:70px}
+.fc:nth-child(2){top:25%;right:8%;animation-delay:1.5s;font-size:55px}
+.fc:nth-child(3){bottom:15%;left:15%;animation-delay:3s;font-size:80px}
+.fc:nth-child(4){bottom:20%;right:12%;animation-delay:4.5s;font-size:50px}
+.fc:nth-child(5){top:50%;left:50%;animation-delay:2s;font-size:45px;opacity:.2}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-25px) rotate(5deg)}}
+
+/* Egg particles */
+.eggs{position:absolute;inset:0;pointer-events:none}
+.egg{position:absolute;font-size:20px;animation:eggfall 8s linear infinite;opacity:.3}
+.egg:nth-child(1){left:10%;animation-delay:0s}
+.egg:nth-child(2){left:30%;animation-delay:2s;animation-duration:10s}
+.egg:nth-child(3){left:50%;animation-delay:4s;animation-duration:7s}
+.egg:nth-child(4){left:70%;animation-delay:6s;animation-duration:9s}
+.egg:nth-child(5){left:85%;animation-delay:1s}
+@keyframes eggfall{0%{transform:translateY(-100px) rotate(0deg);opacity:0}10%{opacity:.3}90%{opacity:.3}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+
+/* ═══════════════ SECTIONS ═══════════════ */
+.section{padding:100px 20px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-tag{display:inline-block;background:rgba(230,126,34,.12);color:var(--orange);padding:6px 16px;border-radius:20px;font-weight:700;font-size:.85em;margin-bottom:16px;letter-spacing:.5px}
+.section-title{font-size:clamp(1.8em,4vw,2.8em);font-weight:900;margin-bottom:16px;color:var(--brown)}
+.section-sub{font-size:1.15em;color:#666;max-width:700px;margin-bottom:50px}
+
+/* ═══════════════ SUPPLY CHAIN FLOW ═══════════════ */
+.journey{background:#fff;padding:100px 20px}
+.flow{display:flex;flex-wrap:wrap;gap:0;justify-content:center;align-items:flex-start;margin-top:50px;position:relative}
+.flow-step{
+  flex:1 1 150px;min-width:130px;max-width:180px;text-align:center;
+  padding:20px 10px;position:relative;
+}
+.flow-step::after{
+  content:'→';position:absolute;right:-8px;top:30%;font-size:1.8em;color:var(--amber);font-weight:900;
+}
+.flow-step:last-child::after{display:none}
+.flow-icon{font-size:3em;margin-bottom:8px}
+.flow-title{font-weight:800;font-size:.95em;color:var(--brown);margin-bottom:4px}
+.flow-sub{font-size:.78em;color:#888}
+
+@media(max-width:768px){
+  .flow{flex-direction:column;align-items:center;gap:12px}
+  .flow-step::after{content:'↓';right:auto;bottom:-18px;top:auto;left:50%;transform:translateX(-50%)}
+  .flow-step{max-width:100%}
+}
+
+/* ═══════════════ FEATURES ═══════════════ */
+.features{background:var(--cream)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+.feat-card{
+  background:#fff;border-radius:var(--radius);padding:36px 28px;
+  box-shadow:var(--shadow);transition:all .3s;border-top:4px solid var(--orange);
+}
+.feat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.feat-icon{font-size:2.8em;margin-bottom:16px}
+.feat-card h3{font-weight:800;margin-bottom:10px;color:var(--brown)}
+.feat-card p{color:#666;font-size:.95em}
+
+/* ═══════════════ BUSINESS PLAN ═══════════════ */
+.biz{background:#fff}
+.biz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+.biz-card{
+  background:var(--cream);border-radius:var(--radius);padding:32px;
+  border:1px solid rgba(0,0,0,.06);transition:all .3s;
+}
+.biz-card:hover{box-shadow:var(--shadow)}
+.biz-card h3{font-weight:800;margin-bottom:12px;color:var(--orange);display:flex;align-items:center;gap:8px}
+.biz-card ul{list-style:none;padding:0}
+.biz-card li{padding:6px 0;font-size:.95em;display:flex;align-items:flex-start;gap:8px}
+.biz-card li::before{content:'✓';color:var(--green);font-weight:900;flex-shrink:0}
+
+/* ═══════════════ PRICING ═══════════════ */
+.pricing{background:linear-gradient(180deg,var(--cream) 0%,#fff 100%)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+.price-card{
+  background:#fff;border-radius:var(--radius);padding:40px 28px;
+  box-shadow:var(--shadow);text-align:center;position:relative;transition:all .3s;
+  border:2px solid transparent;
+}
+.price-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.price-card.featured{border-color:var(--orange);transform:scale(1.04)}
+.price-card.featured:hover{transform:scale(1.06)}
+.price-badge{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--orange);color:#fff;padding:6px 20px;border-radius:20px;
+  font-weight:800;font-size:.8em;
+}
+.price-icon{font-size:3em;margin-bottom:12px}
+.price-name{font-weight:900;font-size:1.2em;color:var(--brown);margin-bottom:8px}
+.price-amount{font-size:2.2em;font-weight:900;color:var(--orange);margin-bottom:4px}
+.price-amount sub{font-size:.45em;font-weight:500;color:#888}
+.price-desc{color:#888;font-size:.9em;margin-bottom:20px}
+.price-features{list-style:none;padding:0;text-align:left;margin-bottom:24px}
+.price-features li{padding:6px 0;font-size:.9em;display:flex;align-items:center;gap:8px}
+.price-features li::before{content:'🐔';flex-shrink:0}
+
+/* ═══════════════ SUBSCRIBE ═══════════════ */
+.subscribe{background:linear-gradient(135deg,var(--brown),#3e2723);color:#fff;padding:100px 20px;text-align:center}
+.subscribe .section-title{color:#fff}
+.subscribe .section-sub{color:rgba(255,255,255,.75);margin:0 auto 40px}
+.sub-form{display:flex;gap:12px;max-width:500px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.sub-form input{
+  flex:1 1 260px;padding:14px 20px;border-radius:50px;border:none;
+  font-size:1em;outline:none;min-width:200px;
+}
+.sub-form input:focus{box-shadow:0 0 0 3px rgba(230,126,34,.5)}
+
+/* ═══════════════ CONTACT ═══════════════ */
+.contact{background:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.contact-info h3{font-weight:800;margin-bottom:12px}
+.contact-info p{margin-bottom:8px}
+.contact-form{display:flex;flex-direction:column;gap:14px}
+.contact-form input,.contact-form textarea{
+  padding:12px 16px;border:2px solid #eee;border-radius:var(--radius-sm);
+  font-size:.95em;font-family:inherit;transition:border .2s;
+}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--orange)}
+.contact-form textarea{resize:vertical;min-height:100px}
+
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+
+/* ═══════════════ FOOTER ═══════════════ */
+footer{
+  background:var(--brown);color:rgba(255,255,255,.7);padding:40px 20px;text-align:center;font-size:.9em;
+}
+footer a{color:var(--amber)}
+
+/* ═══════════════ LANGUAGE DISPLAY ═══════════════ */
+[data-lang]{transition:all .3s}
+body.lang-en [data-lang=zh]{display:none!important}
+body.lang-zh [data-lang=en]{display:none!important}
+body:not(.lang-en):not(.lang-zh) [data-lang]{display:block!important}
+body.lang-zh [data-lang=zh]{display:block!important}
+body.lang-en [data-lang=en]{display:block!important}
+
+/* ═══════════════ MOBILE NAV ═══════════════ */
+@media(max-width:768px){
+  .nav-links{display:none}
+}
 </style>
 </head>
 <body>
-<div class="hero">
-  <h1>🐔 RFID Chicks</h1>
-  <p>Know exactly where your chicken came from</p>
-</div>
-<div class="container">
-  <div class="card">
-    <h2>🔍 Look Up Your Chicken</h2>
-    <p style="margin-bottom: 15px;">Scan the QR code on your package or enter the code below:</p>
-    <input type="text" id="codeInput" placeholder="e.g. BATCH-20260528-042">
-    <button onclick="lookup()">Trace</button>
-    <div id="result" style="margin-top: 20px;"></div>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav>
+  <div class="logo">🐔 <span>RFID Chicks</span></div>
+  <div class="nav-links">
+    <a href="#journey" data-lang="en">How It Works</a>
+    <a href="#journey" data-lang="zh">運作流程</a>
+    <a href="#features" data-lang="en">Features</a>
+    <a href="#features" data-lang="zh">功能特色</a>
+    <a href="#biz" data-lang="en">Business Plan</a>
+    <a href="#biz" data-lang="zh">商業計劃</a>
+    <a href="#pricing" data-lang="en">Pricing</a>
+    <a href="#pricing" data-lang="zh">訂閱方案</a>
+    <button class="lang-toggle" onclick="toggleLang()" id="langBtn">中 文</button>
   </div>
-  <div class="card" id="journey" style="display:none;">
-    <h2>📋 Journey Timeline</h2>
-    <div id="timeline"></div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="home">
+  <div class="float-chickens">
+    <span class="fc">🐔</span><span class="fc">🐓</span><span class="fc">🐣</span><span class="fc">🐤</span><span class="fc">🥚</span>
   </div>
-</div>
+  <div class="eggs">
+    <span class="egg">🥚</span><span class="egg">🥚</span><span class="egg">🥚</span><span class="egg">🥚</span><span class="egg">🥚</span>
+  </div>
+  <div class="hero-content">
+    <h1 data-lang="en">
+      Every Chicken Has a Story.
+      <span class="zh">Trace It From Farm to Fork.</span>
+    </h1>
+    <h1 data-lang="zh">
+      每隻雞都有牠的故事
+      <span class="zh">從農場到餐桌，全程追蹤</span>
+    </h1>
+    <p data-lang="en">
+      RFID Chicks is the next-generation poultry traceability platform. 
+      Using UHF RFID tags, IoT sensors, and blockchain anchoring — 
+      we give every chicken a digital passport from hatchery to supermarket.
+    </p>
+    <p data-lang="zh">
+      RFID Chicks 是新一代家禽溯源追蹤平台。透過超高頻 RFID 標籤、
+      物聯網感測器及區塊鏈存證，為每隻雞建立數碼護照，
+      由孵蛋場到超市貨架，全程透明可查。
+    </p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn btn-primary" data-lang="en">🚀 Get Started</a>
+      <a href="#pricing" class="btn btn-primary" data-lang="zh">🚀 立即開始</a>
+      <a href="#journey" class="btn btn-outline" data-lang="en">📋 See How It Works</a>
+      <a href="#journey" class="btn btn-outline" data-lang="zh">📋 了解運作方式</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SUPPLY CHAIN JOURNEY ═══════════════ -->
+<section class="journey" id="journey">
+  <div class="section-inner">
+    <div class="section-tag" data-lang="en">🐔 SUPPLY CHAIN JOURNEY</div>
+    <div class="section-tag" data-lang="zh">🐔 供應鏈全程追蹤</div>
+    <h2 class="section-title" data-lang="en">One Chicken, Nine Checkpoints</h2>
+    <h2 class="section-title" data-lang="zh">九個關卡，全程透明</h2>
+    <p class="section-sub" data-lang="en">
+      From the moment a chick hatches to the second a consumer picks it off the shelf — 
+      every checkpoint is logged with RFID scans, IoT sensor data, and GPS timestamps.
+    </p>
+    <p class="section-sub" data-lang="zh">
+      由雛雞孵化一刻至消費者從貨架取下的瞬間 — 
+      每個關卡都以 RFID 掃瞄、物聯網數據及 GPS 時間戳記錄在案。
+    </p>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-icon">🥚</div>
+        <div class="flow-title" data-lang="en">1. Hatchery</div>
+        <div class="flow-title" data-lang="zh">1. 孵蛋場</div>
+        <div class="flow-sub" data-lang="en">RFID tag assigned</div>
+        <div class="flow-sub" data-lang="zh">RFID 標籤分配</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">🏡</div>
+        <div class="flow-title" data-lang="en">2. Farm</div>
+        <div class="flow-title" data-lang="zh">2. 農場</div>
+        <div class="flow-sub" data-lang="en">Growth & health logs</div>
+        <div class="flow-sub" data-lang="zh">生長與健康記錄</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">🚛</div>
+        <div class="flow-title" data-lang="en">3. Transport</div>
+        <div class="flow-title" data-lang="zh">3. 運輸</div>
+        <div class="flow-sub" data-lang="en">Temp/GPS monitored</div>
+        <div class="flow-sub" data-lang="zh">溫控GPS監控</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">🏭</div>
+        <div class="flow-title" data-lang="en">4. Processing</div>
+        <div class="flow-title" data-lang="zh">4. 屠宰加工</div>
+        <div class="flow-sub" data-lang="en">Grade & inspection</div>
+        <div class="flow-sub" data-lang="zh">分級與檢驗</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">📦</div>
+        <div class="flow-title" data-lang="en">5. Packaging</div>
+        <div class="flow-title" data-lang="zh">5. 包裝</div>
+        <div class="flow-sub" data-lang="en">RFID → QR mapping</div>
+        <div class="flow-sub" data-lang="zh">RFID → QR 連結</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">❄️</div>
+        <div class="flow-title" data-lang="en">6. Cold Chain</div>
+        <div class="flow-title" data-lang="zh">6. 冷鏈倉儲</div>
+        <div class="flow-sub" data-lang="en">Temp every 15 min</div>
+        <div class="flow-sub" data-lang="zh">每15分鐘測溫</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">🚚</div>
+        <div class="flow-title" data-lang="en">7. Distribution</div>
+        <div class="flow-title" data-lang="zh">7. 配送</div>
+        <div class="flow-sub" data-lang="en">Last-mile tracking</div>
+        <div class="flow-sub" data-lang="zh">末端配送追蹤</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">🏪</div>
+        <div class="flow-title" data-lang="en">8. Retail</div>
+        <div class="flow-title" data-lang="zh">8. 零售</div>
+        <div class="flow-sub" data-lang="en">Store receiving scan</div>
+        <div class="flow-sub" data-lang="zh">門店收貨掃瞄</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-icon">👤</div>
+        <div class="flow-title" data-lang="en">9. Consumer</div>
+        <div class="flow-title" data-lang="zh">9. 消費者</div>
+        <div class="flow-sub" data-lang="en">QR → full history</div>
+        <div class="flow-sub" data-lang="zh">QR一掃全歷程</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FEATURES ═══════════════ -->
+<section class="section features" id="features">
+  <div class="section-inner">
+    <div class="section-tag" data-lang="en">✨ WHY RFID CHICKS?</div>
+    <div class="section-tag" data-lang="zh">✨ 為何選擇 RFID Chicks？</div>
+    <h2 class="section-title" data-lang="en">Built for the Modern Poultry Industry</h2>
+    <h2 class="section-title" data-lang="zh">為現代家禽產業而生</h2>
+    <p class="section-sub" data-lang="en">
+      Combining UHF RAIN RFID, IoT environmental sensors, and optional blockchain anchoring — we deliver
+      the most comprehensive poultry traceability solution on the market.
+    </p>
+    <p class="section-sub" data-lang="zh">
+      結合 UHF RAIN RFID、物聯網環境感測器及可選區塊鏈存證 — 
+      我們提供市場上最全面的家禽溯源方案。
+    </p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🛡️</div>
+        <h3 data-lang="en">Food Safety First</h3>
+        <h3 data-lang="zh">食品安全為先</h3>
+        <p data-lang="en">Isolate recalls in minutes instead of days. Pinpoint exactly which batches are affected using real-time RFID scan history.</p>
+        <p data-lang="zh">由數天縮短至數分鐘內完成回收隔離。利用即時 RFID 掃瞄記錄，精確定位受影響批次。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📱</div>
+        <h3 data-lang="en">Consumer Trust</h3>
+        <h3 data-lang="zh">消費者信心</h3>
+        <p data-lang="en">Your customers scan a QR code and see the full journey — farm origin, processing date, cold chain integrity, and certifications.</p>
+        <p data-lang="zh">顧客掃瞄 QR 碼即可查閱完整旅程 — 農場來源、加工日期、冷鏈完整度及認證資訊。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📋</div>
+        <h3 data-lang="en">Regulatory Compliance</h3>
+        <h3 data-lang="zh">法規合規</h3>
+        <p data-lang="en">FDA FSMA 204, EU Farm-to-Fork Strategy, CFIA traceability mandates — our system is built to meet global standards.</p>
+        <p data-lang="zh">FDA FSMA 204、歐盟 Farm-to-Fork 策略、CFIA 溯源要求 — 系統按全球標準設計。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <h3 data-lang="en">Real-Time Alerts</h3>
+        <h3 data-lang="zh">即時警報</h3>
+        <p data-lang="en">Temperature breaches, transit delays, missed checkpoints — get SMS and dashboard alerts the moment something goes wrong.</p>
+        <p data-lang="zh">溫度超標、運輸延誤、漏檢關卡 — 一有異常即時發送 SMS 及儀表板警報。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔗</div>
+        <h3 data-lang="en">Blockchain Integrity</h3>
+        <h3 data-lang="zh">區塊鏈存證</h3>
+        <p data-lang="en">Optional Hyperledger Fabric anchoring for tamper-proof audit trails. Every critical event hash is immutable on-chain.</p>
+        <p data-lang="zh">可選 Hyperledger Fabric 存證，建立防篡改審計軌跡。每個關鍵事件哈希不可竄改地記錄在鏈上。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💰</div>
+        <h3 data-lang="en">Affordable at Scale</h3>
+        <h3 data-lang="zh">大規模低成本</h3>
+        <p data-lang="en">$0.05–$0.15 RFID tags, ~$65/checkpoint hardware. Designed for million-bird operations with ROI from day one.</p>
+        <p data-lang="zh">RFID 標籤僅 $0.05–$0.15 美元，每關卡硬件 ~$65 美元。專為百萬級雞隻營運設計，首日即有回報。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BUSINESS PLAN ═══════════════ -->
+<section class="section biz" id="biz">
+  <div class="section-inner">
+    <div class="section-tag" data-lang="en">📊 BUSINESS PLAN</div>
+    <div class="section-tag" data-lang="zh">📊 商業計劃</div>
+    <h2 class="section-title" data-lang="en">Building the Future of Food Traceability</h2>
+    <h2 class="section-title" data-lang="zh">打造食品溯源新未來</h2>
+    <p class="section-sub" data-lang="en">
+      The global food traceability market is projected to reach $35B+ by 2030. 
+      RFID Chicks targets the $380B global poultry market with a SaaS + hardware model.
+    </p>
+    <p class="section-sub" data-lang="zh">
+      全球食品溯源市場預計 2030 年將達 $350 億美元以上。
+      RFID Chicks 以 SaaS + 硬件模式，瞄準全球 $3,800 億美元家禽市場。
+    </p>
+    <div class="biz-grid">
+      <div class="biz-card">
+        <h3>🎯 <span data-lang="en">Target Market</span><span data-lang="zh">目標市場</span></h3>
+        <ul>
+          <li data-lang="en">Mid-to-large poultry farms (50K+ birds/year)</li>
+          <li data-lang="zh">中大型家禽養殖場（年產 5 萬隻以上）</li>
+          <li data-lang="en">Poultry processing plants & cold chain operators</li>
+          <li data-lang="zh">家禽屠宰加工廠及冷鏈營運商</li>
+          <li data-lang="en">Supermarket chains requiring traceability compliance</li>
+          <li data-lang="zh">需符合溯源法規的超級市場連鎖</li>
+          <li data-lang="en">Export-oriented poultry producers (EU/US compliance)</li>
+          <li data-lang="zh">出口型家禽生產商（歐盟/美國合規需求）</li>
+          <li data-lang="en">Premium/organic/free-range chicken brands</li>
+          <li data-lang="zh">高級/有機/走地雞品牌</li>
+        </ul>
+      </div>
+      <div class="biz-card">
+        <h3>💵 <span data-lang="en">Revenue Model</span><span data-lang="zh">收入模式</span></h3>
+        <ul>
+          <li data-lang="en">SaaS subscription (tiered by volume)</li>
+          <li data-lang="zh">SaaS 訂閱制（按規模分級收費）</li>
+          <li data-lang="en">Hardware sales or lease (readers, sensors, gateways)</li>
+          <li data-lang="zh">硬件銷售或租賃（讀寫器、感測器、網關）</li>
+          <li data-lang="en">RFID tag consumables (recurring revenue)</li>
+          <li data-lang="zh">RFID 標籤耗材（持續收入）</li>
+          <li data-lang="en">Integration & onboarding fees</li>
+          <li data-lang="zh">系統整合及導入費用</li>
+          <li data-lang="en">Certification-as-a-Service (organic, halal, free-range verification)</li>
+          <li data-lang="zh">認證即服務（有機、清真、走地雞驗證）</li>
+        </ul>
+      </div>
+      <div class="biz-card">
+        <h3>🗺️ <span data-lang="en">Go-to-Market</span><span data-lang="zh">市場策略</span></h3>
+        <ul>
+          <li data-lang="en">Phase 1: Pilot with 2-3 farms in Hong Kong / Guangdong</li>
+          <li data-lang="zh">第一階段：香港/廣東 2-3 個農場試點</li>
+          <li data-lang="en">Phase 2: Expand to Southeast Asia (Thailand, Vietnam, Malaysia)</li>
+          <li data-lang="zh">第二階段：擴展至東南亞（泰國、越南、馬來西亞）</li>
+          <li data-lang="en">Phase 3: EU & North America export compliance</li>
+          <li data-lang="zh">第三階段：歐盟及北美出口合規</li>
+          <li data-lang="en">Partnerships with poultry associations & food safety regulators</li>
+          <li data-lang="zh">與家禽協會及食品安全監管機構合作</li>
+        </ul>
+      </div>
+      <div class="biz-card">
+        <h3>🔬 <span data-lang="en">Tech Moat</span><span data-lang="zh">技術壁壘</span></h3>
+        <ul>
+          <li data-lang="en">Proprietary UHF RFID + IoT sensor fusion algorithms</li>
+          <li data-lang="zh">自主研發 UHF RFID + 物聯網傳感器融合算法</li>
+          <li data-lang="en">Blockchain-anchored event immutability</li>
+          <li data-lang="zh">區塊鏈存證確保事件不可篡改</li>
+          <li data-lang="en">Open API for ERP / WMS integration</li>
+          <li data-lang="zh">開放 API 對接 ERP / WMS 系統</li>
+          <li data-lang="en">Edge computing (ESP32 offline buffer for rural areas)</li>
+          <li data-lang="zh">邊緣運算（ESP32 離線緩衝，適用偏遠農場）</li>
+          <li data-lang="en">Patented RFID-on-crate attachment method</li>
+          <li data-lang="zh">專利 RFID 雞籠附著技術</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<section class="section pricing" id="pricing">
+  <div class="section-inner">
+    <div class="section-tag" data-lang="en">💳 SUBSCRIPTION PLANS</div>
+    <div class="section-tag" data-lang="zh">💳 訂閱方案</div>
+    <h2 class="section-title" data-lang="en">Simple Pricing for Every Scale</h2>
+    <h2 class="section-title" data-lang="zh">簡單定價，規模任選</h2>
+    <p class="section-sub" data-lang="en">All plans include hardware setup, RFID tags, cloud platform, and 24/7 support. No hidden fees.</p>
+    <p class="section-sub" data-lang="zh">所有方案包含硬件安裝、RFID 標籤、雲端平台及全天候支援。無隱藏收費。</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-icon">🐣</div>
+        <div class="price-name" data-lang="en">Starter Farm</div>
+        <div class="price-name" data-lang="zh">入門農場</div>
+        <div class="price-amount">$499<sub>/month</sub></div>
+        <div class="price-desc" data-lang="en">Up to 50,000 birds/year</div>
+        <div class="price-desc" data-lang="zh">年產最多 5 萬隻雞</div>
+        <ul class="price-features">
+          <li data-lang="en">3 RFID checkpoints</li><li data-lang="zh">3 個 RFID 關卡</li>
+          <li data-lang="en">Basic IoT sensors (temp + humidity)</li><li data-lang="zh">基本物聯網感測器（溫濕度）</li>
+          <li data-lang="en">Cloud dashboard</li><li data-lang="zh">雲端儀表板</li>
+          <li data-lang="en">Consumer QR trace page</li><li data-lang="zh">消費者 QR 溯源頁面</li>
+          <li data-lang="en">Email support</li><li data-lang="zh">電郵支援</li>
+          <li data-lang="en">5,000 RFID tags included</li><li data-lang="zh">附送 5,000 個 RFID 標籤</li>
+        </ul>
+        <a href="#subscribe" class="btn btn-primary" data-lang="en">Start Free Trial</a>
+        <a href="#subscribe" class="btn btn-primary" data-lang="zh">開始免費試用</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge" data-lang="en">⭐ MOST POPULAR</div>
+        <div class="price-badge" data-lang="zh">⭐ 最受歡迎</div>
+        <div class="price-icon">🐔</div>
+        <div class="price-name" data-lang="en">Commercial Farm</div>
+        <div class="price-name" data-lang="zh">商業農場</div>
+        <div class="price-amount">$1,299<sub>/month</sub></div>
+        <div class="price-desc" data-lang="en">Up to 500,000 birds/year</div>
+        <div class="price-desc" data-lang="zh">年產最多 50 萬隻雞</div>
+        <ul class="price-features">
+          <li data-lang="en">7 RFID checkpoints (full chain)</li><li data-lang="zh">7 個 RFID 關卡（全鏈）</li>
+          <li data-lang="en">Advanced IoT (temp, humidity, NH₃, GPS)</li><li data-lang="zh">進階物聯網（溫濕度、氨氣、GPS）</li>
+          <li data-lang="en">Real-time alerts (SMS + email)</li><li data-lang="zh">即時警報（SMS + 電郵）</li>
+          <li data-lang="en">Blockchain anchoring included</li><li data-lang="zh">含區塊鏈存證</li>
+          <li data-lang="en">API access</li><li data-lang="zh">API 接口</li>
+          <li data-lang="en">Priority 24/7 support</li><li data-lang="zh">24/7 優先支援</li>
+          <li data-lang="en">50,000 RFID tags included</li><li data-lang="zh">附送 50,000 個 RFID 標籤</li>
+        </ul>
+        <a href="#subscribe" class="btn btn-primary" data-lang="en">Start Free Trial</a>
+        <a href="#subscribe" class="btn btn-primary" data-lang="zh">開始免費試用</a>
+      </div>
+      <div class="price-card">
+        <div class="price-icon">🏭</div>
+        <div class="price-name" data-lang="en">Enterprise</div>
+        <div class="price-name" data-lang="zh">企業方案</div>
+        <div class="price-amount" data-lang="en">Custom</div>
+        <div class="price-amount" data-lang="zh">按需定價</div>
+        <div class="price-desc" data-lang="en">1M+ birds/year, multi-site</div>
+        <div class="price-desc" data-lang="zh">年產百萬隻以上，多據點</div>
+        <ul class="price-features">
+          <li data-lang="en">Unlimited checkpoints</li><li data-lang="zh">不限關卡數量</li>
+          <li data-lang="en">Full IoT sensor suite</li><li data-lang="zh">全套物聯網感測器</li>
+          <li data-lang="en">Custom integrations (ERP, WMS, SAP)</li><li data-lang="zh">客製化整合（ERP、WMS、SAP）</li>
+          <li data-lang="en">Dedicated blockchain network</li><li data-lang="zh">專屬區塊鏈網絡</li>
+          <li data-lang="en">On-premise deployment option</li><li data-lang="zh">可選本地部署</li>
+          <li data-lang="en">Dedicated account manager</li><li data-lang="zh">專屬客戶經理</li>
+          <li data-lang="en">White-label consumer app</li><li data-lang="zh">白標消費者應用程式</li>
+        </ul>
+        <a href="#subscribe" class="btn btn-primary" data-lang="en">Contact Sales</a>
+        <a href="#subscribe" class="btn btn-primary" data-lang="zh">聯絡銷售</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SUBSCRIBE ═══════════════ -->
+<section class="subscribe" id="subscribe">
+  <div class="section-inner">
+    <div class="section-tag" style="background:rgba(255,255,255,.15);color:#ffd700" data-lang="en">📧 GET EARLY ACCESS</div>
+    <div class="section-tag" style="background:rgba(255,255,255,.15);color:#ffd700" data-lang="zh">📧 搶先體驗</div>
+    <h2 class="section-title" data-lang="en">Ready to Trace Every Bird?</h2>
+    <h2 class="section-title" data-lang="zh">準備好追蹤每隻雞？</h2>
+    <p class="section-sub" data-lang="en">
+      Join our pilot program. First 10 farms get free hardware installation and 3 months free.
+    </p>
+    <p class="section-sub" data-lang="zh">
+      加入我們試點計劃。首 10 個農場免費安裝硬件，另送 3 個月免費使用。
+    </p>
+    <div class="sub-form">
+      <input type="email" placeholder="your@email.com" data-lang="en">
+      <input type="email" placeholder="你的電郵地址" data-lang="zh" style="display:none">
+      <button class="btn btn-primary" onclick="subscribe()" data-lang="en">🐔 Join the Flock</button>
+      <button class="btn btn-primary" onclick="subscribe()" data-lang="zh">🐔 加入雞群</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section class="section contact" id="contact">
+  <div class="section-inner">
+    <div class="section-tag" data-lang="en">💬 CONTACT US</div>
+    <div class="section-tag" data-lang="zh">💬 聯絡我們</div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3 data-lang="en">Let's Talk Chicken 🐔</h3>
+        <h3 data-lang="zh">傾下雞經 🐔</h3>
+        <p data-lang="en">Have questions about integrating RFID Chicks into your poultry operation? Our team of poultry tech specialists is ready to help.</p>
+        <p data-lang="zh">想了解如何將 RFID Chicks 整合到你的家禽業務？我們的家禽科技專家團隊隨時為你服務。</p>
+        <p>📧 hello@rfidchicks.com</p>
+        <p>📞 +852 3008 8888</p>
+        <p>📍 Hong Kong • Shenzhen • Bangkok</p>
+      </div>
+      <form class="contact-form" onsubmit="event.preventDefault();alert('Thanks! We\\'ll get back to you within 24 hours.')">
+        <input type="text" placeholder="Your Name / 你的名字" required>
+        <input type="email" placeholder="Email / 電郵" required>
+        <input type="text" placeholder="Farm Name / 農場名稱">
+        <textarea placeholder="Tell us about your operation / 描述你的業務規模"></textarea>
+        <button type="submit" class="btn btn-primary" data-lang="en">Send Message 🐓</button>
+        <button type="submit" class="btn btn-primary" data-lang="zh">發送訊息 🐓</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <p>🐔 <strong>RFID Chicks</strong> — Every Chicken Has a Story. © 2026</p>
+  <p style="margin-top:8px">
+    <a href="https://github.com/Parklan2046/rfidchicks" target="_blank">GitHub</a> · 
+    <a href="https://on9claw.com/rfidchicks" target="_blank">on9claw.com/rfidchicks</a>
+  </p>
+</footer>
+
 <script>
-async function lookup() {
-  const code = document.getElementById('codeInput').value.trim();
-  if (!code) return;
+// Language toggle
+let currentLang = 'zh'; // default Chinese
+function toggleLang(){
+  currentLang = currentLang === 'zh' ? 'en' : 'zh';
+  document.body.className = 'lang-' + currentLang;
+  document.getElementById('langBtn').textContent = currentLang === 'zh' ? '中 文' : 'English';
   
-  try {
-    const resp = await fetch(`/api/v1/batches/${code}`);
-    if (!resp.ok) throw new Error('Not found');
-    const batch = await resp.json();
-    
-    document.getElementById('journey').style.display = 'block';
-    let html = `<p><strong>Batch:</strong> ${batch.batch_code}</p>`;
-    html += `<p><strong>Breed:</strong> ${batch.breed}</p>`;
-    html += `<p><span class="cold-chain intact">❄️ Cold Chain: INTACT</span></p>`;
-    html += `<p>`;
-    html += `<span class="badge">🐔 Free Range</span>`;
-    html += `<span class="badge">✅ HACCP</span>`;
-    html += `<span class="badge">☪️ Halal</span>`;
-    html += `</p>`;
-    
-    if (batch.events && batch.events.length > 0) {
-      html += '<div class="timeline">';
-      batch.events.forEach(ev => {
-        html += `<div class="step">`;
-        html += `<div class="step-label">${ev.event_type}</div>`;
-        html += `<div class="step-time">${ev.timestamp} — ${ev.checkpoint_id}</div>`;
-        html += `</div>`;
-      });
-      html += '</div>';
+  // Toggle email placeholder visibility
+  document.querySelectorAll('.sub-form input[type=email]').forEach(el => {
+    if (el.getAttribute('data-lang') === currentLang) {
+      el.style.display = 'block';
+    } else {
+      el.style.display = 'none';
     }
-    
-    document.getElementById('timeline').innerHTML = html;
-  } catch(e) {
-    document.getElementById('result').innerHTML = '<p style="color:red;">Batch not found. Check your code and try again.</p>';
+  });
+  
+  localStorage.setItem('rfidchicks-lang', currentLang);
+}
+// Init
+(function(){
+  const saved = localStorage.getItem('rfidchicks-lang') || 'zh';
+  currentLang = saved === 'en' ? 'en' : 'zh';
+  document.body.className = 'lang-' + currentLang;
+  document.getElementById('langBtn').textContent = currentLang === 'zh' ? '中 文' : 'English';
+  // Hide non-current language inputs
+  document.querySelectorAll('.sub-form input[type=email]').forEach(el => {
+    if (el.getAttribute('data-lang') !== currentLang) el.style.display = 'none';
+  });
+})();
+
+function subscribe(){
+  const email = document.querySelector('.sub-form input[type=email]:not([style*="display: none"])')?.value;
+  if(email && email.includes('@')){
+    alert('🎉 Welcome to the flock! We\'ll send you onboarding details within 24 hours.\n\n🎉 歡迎加入雞群！我們將在 24 小時內發送入門詳情。');
+  } else {
+    alert('Please enter a valid email / 請輸入有效電郵地址');
   }
 }
 </script>
