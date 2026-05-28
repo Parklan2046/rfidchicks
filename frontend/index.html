@@ -425,7 +425,7 @@ footer a:hover{color:var(--accent-light)}
         <div class="contact-detail">📞 +852 3008 8888</div>
         <div class="contact-detail">📍 Hong Kong · Shenzhen · Bangkok</div>
       </div>
-      <form class="contact-form reveal reveal-delay-1" onsubmit="event.preventDefault();alert(i18n[currentLang].contact.alert)">
+      <form class="contact-form reveal reveal-delay-1" onsubmit="event.preventDefault();alert(__i18n.t('contact.alert'))">
         <input type="text" data-i18n-placeholder="contact.name" placeholder="你的名字">
         <input type="email" data-i18n-placeholder="contact.email" placeholder="電郵地址">
         <input type="text" data-i18n-placeholder="contact.farm" placeholder="農場名稱">
