@@ -166,15 +166,15 @@
   var detected = detectLanguage();
   _current = detected;
 
-  // Show nothing until loaded (prevent FOUC — flash of untranslated content)
-  document.documentElement.style.visibility = 'hidden';
+  // No FOUC protection here — the page uses an inline style block
+  // with body{visibility:hidden} that this removes once loaded.
 
   _pending = preloadAll().then(function () {
-    document.documentElement.style.visibility = '';
+    document.body.style.visibility = '';
   }).catch(function (err) {
     console.error('[i18n] Bootstrap failed:', err);
-    // fallback: try to show whatever we have
-    document.documentElement.style.visibility = '';
+    // fallback: show the page even if i18n failed
+    document.body.style.visibility = '';
     applyLanguage(_current);
   });
 
