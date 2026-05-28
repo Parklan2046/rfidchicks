@@ -63,6 +63,11 @@ nav{
   background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(217,119,52,.06) 0%,transparent 60%),
              radial-gradient(ellipse 40% 50% at 80% 70%,rgba(201,151,58,.04) 0%,transparent 50%);
 }
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:url(https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1920&q=80) center/cover;
+  opacity:.06;mix-blend-mode:multiply;
+}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1280px;margin:0 auto;position:relative;z-index:2}
 .hero-text h1{font-size:clamp(2.8em,7vw,5.5em);font-weight:800;letter-spacing:-.03em;line-height:.95;margin-bottom:24px}
 .hero-text h1 .em{color:var(--accent);font-style:italic;display:inline-block}
@@ -98,6 +103,13 @@ nav{
 .btn-outline:hover{background:var(--paper-alt);border-color:var(--muted);transform:translateY(-1px)}
 .btn-ghost{background:transparent;color:var(--accent);padding:10px 20px}
 .btn-ghost:hover{background:rgba(217,119,52,.06)}
+
+/* ═══════════ FOCUS & ACCESSIBILITY ═══════════ */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.btn:focus-visible,.lang-switch button:focus-visible{outline-offset:3px;border-radius:40px}
+input:focus-visible,textarea:focus-visible{border-radius:var(--radius)}
+.stat .val,.big-number,.big-stat{font-variant-numeric:tabular-nums}
+.hero-card .stat .val[data-i18n]::before{display:none}
 
 /* ═══════════ SECTIONS ═══════════ */
 .section{padding:120px 32px;position:relative}
@@ -232,7 +244,11 @@ footer a:hover{color:var(--accent-light)}
   .flow-step{flex:0 0 140px}
 }
 
-/* ═══════════ SKIP LINK ═══════════ */
+/* ═══════════ TOAST NOTIFICATION ═══════════ */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--paper);padding:14px 28px;border-radius:40px;font-size:.9em;font-weight:500;z-index:300;box-shadow:0 8px 32px rgba(0,0,0,.25);transition:transform .4s var(--ease-spring);pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{border:1px solid var(--success);background:#1a2e1a;color:#a0d9a0}
+.toast.error{border:1px solid var(--danger);background:#2e1a1a;color:#d9a0a0}
 .skip-link{position:absolute;top:-100px;left:16px;background:var(--ink);color:var(--paper);padding:8px 16px;border-radius:6px;z-index:200;font-weight:600}.skip-link:focus{top:16px}
 
 /* ═══════════ COOKIE BANNER ═══════════ */
@@ -335,32 +351,32 @@ footer a:hover{color:var(--accent-light)}
       <div class="testimonial-card reveal">
         <div class="stars">★★★★★</div>
         <div class="quote" data-i18n="testimonials.t1">自從喺校園飯堂引入區塊雞之後，學生對食物透明度嘅滿意度上升咗 40%。</div>
-        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#e3f0ff">🎓</div><div><div class="testimonial-name">劉偉霆 William Lau</div><div class="testimonial-role" data-i18n="testimonials.r1">香港科技大學 · 餐飲總監</div></div></div>
+        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#e3f0ff">🎓</div><div><div class="testimonial-name">Calvin Tsang Wing-hong</div><div class="testimonial-role" data-i18n="testimonials.r1">Catering Director, HKUST</div></div></div>
       </div>
       <div class="testimonial-card reveal reveal-delay-1">
         <div class="stars">★★★★★</div>
         <div class="quote" data-i18n="testimonials.t2">未用區塊雞之前，每次有食安風波，我成個農場都要停工幾個禮拜等查源頭。而家？30 分鐘搞掂。</div>
-        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#e6f5e2">👨‍🌾</div><div><div class="testimonial-name">劉德華 Andy Lau</div><div class="testimonial-role" data-i18n="testimonials.r2">元朗錦田走地雞場 · 場主</div></div></div>
+        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#e6f5e2">👨‍🌾</div><div><div class="testimonial-name">Henry Chan Kin-ming</div><div class="testimonial-role" data-i18n="testimonials.r2">Owner, Kam Tin Free-Range Farm</div></div></div>
       </div>
       <div class="testimonial-card reveal reveal-delay-2">
         <div class="stars">★★★★★</div>
         <div class="quote" data-i18n="testimonials.t3">區塊雞俾到我哋一個競爭優勢 — 貨架上每一包雞都有 QR code，銷量升咗 35%。</div>
-        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#fff8e8">🏪</div><div><div class="testimonial-name">張曼玉 Maggie Cheung</div><div class="testimonial-role" data-i18n="testimonials.r3">百佳超級市場 · 鮮食品副總裁</div></div></div>
+        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#fff8e8">🏪</div><div><div class="testimonial-name">Grace Lam Suk-yee</div><div class="testimonial-role" data-i18n="testimonials.r3">VP Fresh Foods, PARKnSHOP</div></div></div>
       </div>
       <div class="testimonial-card reveal reveal-delay-3">
         <div class="stars">★★★★★</div>
         <div class="quote" data-i18n="testimonials.t4">IoT 溫度 sensor 幫我哋避咗一單 $200K 嘅賠償，保險費仲跌咗 15%。</div>
-        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#f0e6f6">🚛</div><div><div class="testimonial-name">周星馳 Stephen Chow</div><div class="testimonial-role" data-i18n="testimonials.r4">冰鏈物流有限公司 · 行政總裁</div></div></div>
+        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#f0e6f6">🚛</div><div><div class="testimonial-name">Thomas Ng Wai-lun</div><div class="testimonial-role" data-i18n="testimonials.r4">CEO, Chill Chain Logistics Ltd</div></div></div>
       </div>
       <div class="testimonial-card reveal">
         <div class="stars">★★★★★</div>
         <div class="quote" data-i18n="testimonials.t5">USDA 檢查官好鍾意我哋嘅系統。生產線上 zero 文書、zero 人手記錄。</div>
-        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#e3faf0">🏭</div><div><div class="testimonial-name">梁朝偉 Tony Leung</div><div class="testimonial-role" data-i18n="testimonials.r5">大埔家禽加工廠 · 廠長</div></div></div>
+        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#e3faf0">🏭</div><div><div class="testimonial-name">Raymond Ho Cheuk-yin</div><div class="testimonial-role" data-i18n="testimonials.r5">Plant Manager, Tai Po Poultry</div></div></div>
       </div>
       <div class="testimonial-card reveal reveal-delay-1">
         <div class="stars">★★★★★</div>
         <div class="quote" data-i18n="testimonials.t6">而家我只會買有區塊雞 QR code 嘅雞肉 — 俾多少少錢換個安心，絕對值得。</div>
-        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#fce8ea">👩‍👧</div><div><div class="testimonial-name">黃太 Mrs. Wong</div><div class="testimonial-role" data-i18n="testimonials.r6">太古城 · 兩孩之母</div></div></div>
+        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#fce8ea">👩‍👧</div><div><div class="testimonial-name">Sophia Poon Ka-yan</div><div class="testimonial-role" data-i18n="testimonials.r6">Mother of 2, Tai Koo Shing</div></div></div>
       </div>
     </div>
   </div>
@@ -425,7 +441,7 @@ footer a:hover{color:var(--accent-light)}
         <div class="contact-detail">📞 +852 3008 8888</div>
         <div class="contact-detail">📍 Hong Kong · Shenzhen · Bangkok</div>
       </div>
-      <form class="contact-form reveal reveal-delay-1" onsubmit="event.preventDefault();alert(__i18n.t('contact.alert'))">
+      <form class="contact-form reveal reveal-delay-1" onsubmit="event.preventDefault();submitContact(this)">
         <input type="text" data-i18n-placeholder="contact.name" placeholder="你的名字">
         <input type="email" data-i18n-placeholder="contact.email" placeholder="電郵地址">
         <input type="text" data-i18n-placeholder="contact.farm" placeholder="農場名稱">
@@ -446,8 +462,6 @@ footer a:hover{color:var(--accent-light)}
     <a href="#pricing">Pricing</a>
     <a href="#contact">Contact</a>
     <a href="https://github.com/Parklan2046/rfidchicks" target="_blank">GitHub</a>
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
   </div>
 </footer>
 
@@ -455,17 +469,34 @@ footer a:hover{color:var(--accent-light)}
   <span>🍪 This site uses cookies. <span style="opacity:.6">We only use essential ones.</span></span>
   <button onclick="document.getElementById('cookieBanner').remove()">Got it</button>
 </div>
+<div class="toast" id="toast"></div>
 
 <script src="i18n/i18n.js"></script>
 <script>
 // ═══════════════ App Logic ═══════════════
+function showToast(msg, type) {
+  var toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast ' + (type || '') + ' show';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 3500);
+}
 function doSubscribe() {
   var email = document.getElementById('subEmail').value;
   if (email && email.indexOf('@') !== -1) {
-    alert(__i18n.t('sub.alert'));
+    showToast(__i18n.t('sub.alert'), 'success');
+    document.getElementById('subEmail').value = '';
   } else {
-    alert(__i18n.t('contact.invalidEmail'));
+    showToast(__i18n.t('contact.invalidEmail'), 'error');
   }
+}
+function submitContact(form) {
+  var inputs = form.querySelectorAll('input[required],input[type="email"]');
+  for (var i = 0; i < inputs.length; i++) {
+    if (!inputs[i].value.trim()) { showToast('Please fill in all fields', 'error'); return; }
+  }
+  showToast(__i18n.t('contact.alert'), 'success');
+  form.reset();
 }
 // Scroll reveal observer
 (function() {
