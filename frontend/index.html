@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RFID Chicks — Trace Your Chicken</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, system-ui, sans-serif; background: #f5f0eb; color: #2d2d2d; }
+.hero { background: linear-gradient(135deg, #e67e22, #f39c12); color: white; padding: 60px 20px; text-align: center; }
+.hero h1 { font-size: 2.5em; margin-bottom: 10px; }
+.hero p { font-size: 1.2em; opacity: 0.9; }
+.container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+.card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.card h2 { color: #e67e22; margin-bottom: 15px; }
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 3px; background: #e67e22; border-radius: 2px; }
+.step { position: relative; margin-bottom: 25px; }
+.step::before { content: '🐔'; position: absolute; left: -26px; font-size: 16px; background: #f5f0eb; padding: 2px; }
+.step-label { font-weight: 600; color: #e67e22; }
+.step-time { font-size: 0.85em; color: #999; margin-top: 3px; }
+.cold-chain { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 600; }
+.cold-chain.intact { background: #d4edda; color: #155724; }
+.cold-chain.broken { background: #f8d7da; color: #721c24; }
+.badge { display: inline-block; padding: 4px 10px; border-radius: 6px; background: #fff3cd; color: #856404; margin: 3px; font-size: 0.8em; }
+input[type=text] { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1em; }
+button { background: #e67e22; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1em; cursor: pointer; margin-top: 10px; }
+button:hover { background: #d35400; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>🐔 RFID Chicks</h1>
+  <p>Know exactly where your chicken came from</p>
+</div>
+<div class="container">
+  <div class="card">
+    <h2>🔍 Look Up Your Chicken</h2>
+    <p style="margin-bottom: 15px;">Scan the QR code on your package or enter the code below:</p>
+    <input type="text" id="codeInput" placeholder="e.g. BATCH-20260528-042">
+    <button onclick="lookup()">Trace</button>
+    <div id="result" style="margin-top: 20px;"></div>
+  </div>
+  <div class="card" id="journey" style="display:none;">
+    <h2>📋 Journey Timeline</h2>
+    <div id="timeline"></div>
+  </div>
+</div>
+<script>
+async function lookup() {
+  const code = document.getElementById('codeInput').value.trim();
+  if (!code) return;
+  
+  try {
+    const resp = await fetch(`/api/v1/batches/${code}`);
+    if (!resp.ok) throw new Error('Not found');
+    const batch = await resp.json();
+    
+    document.getElementById('journey').style.display = 'block';
+    let html = `<p><strong>Batch:</strong> ${batch.batch_code}</p>`;
+    html += `<p><strong>Breed:</strong> ${batch.breed}</p>`;
+    html += `<p><span class="cold-chain intact">❄️ Cold Chain: INTACT</span></p>`;
+    html += `<p>`;
+    html += `<span class="badge">🐔 Free Range</span>`;
+    html += `<span class="badge">✅ HACCP</span>`;
+    html += `<span class="badge">☪️ Halal</span>`;
+    html += `</p>`;
+    
+    if (batch.events && batch.events.length > 0) {
+      html += '<div class="timeline">';
+      batch.events.forEach(ev => {
+        html += `<div class="step">`;
+        html += `<div class="step-label">${ev.event_type}</div>`;
+        html += `<div class="step-time">${ev.timestamp} — ${ev.checkpoint_id}</div>`;
+        html += `</div>`;
+      });
+      html += '</div>';
+    }
+    
+    document.getElementById('timeline').innerHTML = html;
+  } catch(e) {
+    document.getElementById('result').innerHTML = '<p style="color:red;">Batch not found. Check your code and try again.</p>';
+  }
+}
+</script>
+</body>
+</html>

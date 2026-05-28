@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://rfidchicks:rfidchicks@postgres:5432/rfidchicks
+      - REDIS_URL=redis://redis:6379
+      - INFLUXDB_URL=http://influxdb:8086
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: rfidchicks
+      POSTGRES_USER: rfidchicks
+      POSTGRES_PASSWORD: rfidchicks
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+
+  influxdb:
+    image: influxdb:2.7-alpine
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: rfidchicks
+      DOCKER_INFLUXDB_INIT_PASSWORD: rfidchicks123
+      DOCKER_INFLUXDB_INIT_ORG: rfidchicks
+      DOCKER_INFLUXDB_INIT_BUCKET: sensors
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdata:/var/lib/influxdb2
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  influxdata:
