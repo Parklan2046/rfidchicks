@@ -52,6 +52,40 @@ nav{
 .lang-switch button{padding:6px 12px;border:none;font-weight:600;font-size:.78em;cursor:pointer;border-radius:22px;transition:all .25s var(--ease-out);background:transparent;color:var(--muted)}
 .lang-switch button.active{background:var(--ink);color:var(--paper);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 
+/* ═══════════ BLOCKCHAIN ANIMATION ═══════════ */
+.chain-net{position:absolute;inset:0;pointer-events:none;z-index:1}
+.chain-node{position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid var(--accent);background:rgba(217,119,52,.1);animation:nodePulse 3s ease-in-out infinite}
+.chain-node::after{content:'';position:absolute;inset:2px;border-radius:50%;background:var(--accent);opacity:.5;animation:nodeGlow 2s ease-in-out infinite alternate}
+.chain-node:nth-child(1){top:8%;left:12%;animation-delay:0s}
+.chain-node:nth-child(2){top:15%;left:72%;animation-delay:.5s}
+.chain-node:nth-child(3){top:55%;right:5%;animation-delay:1s}
+.chain-node:nth-child(4){bottom:18%;left:22%;animation-delay:1.5s}
+.chain-node:nth-child(5){bottom:6%;right:28%;animation-delay:2s}
+.chain-node:nth-child(6){top:42%;left:8%;animation-delay:.7s;width:12px;height:12px}
+.chain-node:nth-child(7){top:28%;right:22%;animation-delay:1.8s;width:14px;height:14px}
+.chain-node:nth-child(8){bottom:35%;left:82%;animation-delay:.3s;width:10px;height:10px}
+@keyframes nodePulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(217,119,52,.3)}50%{transform:scale(1.8);box-shadow:0 0 0 12px rgba(217,119,52,0)}}
+@keyframes nodeGlow{0%{opacity:.4}100%{opacity:.9}}
+
+.chain-line{position:absolute;height:1px;transform-origin:left center;animation:chainDash 4s linear infinite}
+.chain-line::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,var(--accent) 30%,var(--accent) 70%,transparent 100%);opacity:.15;mask:repeating-linear-gradient(90deg,transparent,transparent 4px,#000 4px,#000 8px)}
+@keyframes chainDash{0%{mask-position:0 0}100%{mask-position:16px 0}}
+
+.chain-hex{position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg width='48' height='56' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 0l24 14v28l-24 14-24-14V14L24 0zm0 8L8 18v20l16 10 16-10V18L24 8z' fill='%23d97734' fill-rule='evenodd'/%3E%3C/svg%3E")}
+
+/* ═══════════ FLOATING CHICKENS ═══════════ */
+.flock{position:absolute;inset:0;pointer-events:none;z-index:1}
+.flock .bird{position:absolute;animation:floatBird 7s ease-in-out infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.08))}
+.flock .bird:nth-child(1){top:12%;left:5%;font-size:72px;animation-delay:0s;animation-duration:7.5s}
+.flock .bird:nth-child(2){top:20%;right:8%;font-size:48px;animation-delay:1.5s;animation-duration:8s}
+.flock .bird:nth-child(3){bottom:22%;left:60%;font-size:56px;animation-delay:3s;animation-duration:6.5s}
+.flock .bird:nth-child(4){bottom:15%;right:15%;font-size:36px;animation-delay:4.5s;animation-duration:9s}
+.flock .bird:nth-child(5){top:45%;left:30%;font-size:28px;animation-delay:2s;animation-duration:5.5s}
+.flock .bird:nth-child(6){top:60%;right:35%;font-size:64px;animation-delay:5s;animation-duration:8.5s}
+.flock .bird:nth-child(7){top:5%;left:45%;font-size:20px;animation-delay:6s;animation-duration:6s}
+.flock .bird:nth-child(8){bottom:8%;left:12%;font-size:42px;animation-delay:3.5s;animation-duration:7.2s}
+@keyframes floatBird{0%,100%{transform:translateY(0) rotate(-2deg) scale(1)}25%{transform:translateY(-18px) rotate(3deg) scale(1.05)}50%{transform:translateY(-6px) rotate(-1deg) scale(0.97)}75%{transform:translateY(-22px) rotate(4deg) scale(1.03)}}
+
 /* ═══════════ HERO ═══════════ */
 .hero{
   min-height:100svh;display:flex;align-items:center;position:relative;
@@ -80,6 +114,8 @@ nav{
   box-shadow:var(--shadow-lg);position:relative;z-index:2;
   border:1px solid var(--border);
 }
+.hero-card::before{content:'';position:absolute;inset:-1px;border-radius:var(--radius-lg);background:linear-gradient(135deg,var(--accent),transparent 60%,var(--accent-light));opacity:.08;z-index:-1;animation:cardBorder 4s ease-in-out infinite alternate}
+@keyframes cardBorder{0%{opacity:.04}100%{opacity:.1}}
 .hero-card .label{font-size:.7em;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:600;margin-bottom:12px}
 .hero-card .big-number{font-family:var(--font-display);font-size:4em;font-weight:800;line-height:1;letter-spacing:-.03em;margin-bottom:4px}
 .hero-card .big-number sub{font-size:.25em;font-weight:500;color:var(--muted);margin-left:4px}
@@ -279,6 +315,13 @@ footer a:hover{color:var(--accent-light)}
 <main id="main">
 <section class="hero">
   <div class="hero-bg"></div>
+  <div class="chain-hex"></div>
+  <div class="chain-net">
+    <div class="chain-node"></div><div class="chain-node"></div><div class="chain-node"></div><div class="chain-node"></div><div class="chain-node"></div><div class="chain-node"></div><div class="chain-node"></div><div class="chain-node"></div>
+  </div>
+  <div class="flock">
+    <span class="bird">🐔</span><span class="bird">🐓</span><span class="bird">🐣</span><span class="bird">🐤</span><span class="bird">🥚</span><span class="bird">🐔</span><span class="bird">🐣</span><span class="bird">🥚</span>
+  </div>
   <div class="hero-grid">
     <div class="hero-text reveal">
       <h1 data-i18n="hero.title">區塊雞<span class="sub">Block Chicken</span></h1>
@@ -292,12 +335,19 @@ footer a:hover{color:var(--accent-light)}
       <div class="hero-floating">🐔</div>
       <div class="hero-floating">🥚</div>
       <div class="hero-card">
-        <div class="label" data-i18n="hero.card.label">Live Traceability</div>
+        <div class="label">⬡ <span data-i18n="hero.card.label">即時溯源追蹤</span><span class="live-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--success);margin-left:8px;animation:nodeGlow 1.5s ease-in-out infinite alternate"></span></div>
         <div class="big-number" data-i18n="hero.card.num">9<span>Checkpoints</span></div>
         <div class="stat-row">
           <div class="stat"><div class="val">$0.05</div><div class="lbl">per tag</div></div>
           <div class="stat"><div class="val">100%</div><div class="lbl">on chain</div></div>
           <div class="stat"><div class="val">&lt;30s</div><div class="lbl">recall time</div></div>
+        </div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);font-family:monospace;font-size:.62em;color:var(--muted);opacity:.7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+          <span style="color:var(--accent);opacity:.8">BLOCK #</span>8f3a<p style="display:inline;opacity:.4">271e9a6b5c2d4f0a8e1b3c7d9f2a5e8b6c1d</p>
+        </div>
+        <div style="margin-top:6px;font-size:.62em;color:var(--success);opacity:.6;display:flex;align-items:center;gap:4px">
+          <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--success);animation:nodeGlow 1s ease-in-out infinite"></span>
+          12 tx confirmed · 4.7s ago
         </div>
       </div>
     </div>
