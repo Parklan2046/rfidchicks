@@ -277,7 +277,13 @@ footer a:hover{color:var(--accent-light)}
   .testimonial-masonry{columns:1}
   .pricing-grid{flex-direction:column;align-items:center}
   .price-card.spotlight{transform:none}.price-card.spotlight:hover{transform:translateY(-4px)}
-  .flow-step{flex:0 0 140px}
+  .flow-track{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 8px;overflow-x:visible;scroll-snap-type:none;padding:20px 0 30px}
+  .flow-step{flex:none;width:auto;padding:18px 6px;scroll-snap-align:none}
+  .flow-step::after{display:none}
+  .flow-num{font-size:2em}
+  .flow-icon{font-size:2em;margin-bottom:6px}
+  .flow-title{font-size:.82em}
+  .flow-sub{font-size:.7em}
 }
 
 /* ═══════════ TOAST NOTIFICATION ═══════════ */
